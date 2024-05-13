@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <link href="{{ asset('css/welcome.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -37,7 +38,7 @@
         </div>
 
         <div class="home-img">
-            <img src="Sport family-amico (1).png" alt="home">
+            <img src="{{ asset('images/Sport family-amico (1).png') }}" alt="home">
         </div>
         </div>
 
@@ -98,7 +99,7 @@
         <div class="row">
 
             <div class="image">
-                <img src="Sport family-amico (1).png" alt="">
+                <img src="{{ asset('images/Sport family-amico (1).png') }}" alt="">
             </div>
 
             <div class="content">
