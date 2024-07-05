@@ -1,11 +1,10 @@
 <?php
 
-use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\UserController;
-use App\Models\Vendor;
 
 /*
 |--------------------------------------------------------------------------
@@ -91,12 +90,3 @@ Route::middleware(['auth', 'role:vendor'])->group(function () {
     //Vendor Read Laporan dan Statistik Keuangan
     Route::get('/vendor/finance-reports', [VendorController::class, 'indexPendapatan'])->name('finance_reports.index'); //belom (nunggu tabel pembayaran user)
 });
-
-Route::middleware(['guest'])->group(function(){
-    Route::get('/login',[LoginController::class,'index'])->name('login');
-    Route::post('/login-process',[LoginController::class,'login_process'])->name('login-process');
-
-    Route::get('/register',[LoginController::class,'register'])->name('register');
-    Route::post('/register-process',[LoginController::class,'register_process'])->name('register-process');
-});
-

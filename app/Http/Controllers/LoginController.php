@@ -14,6 +14,20 @@ class LoginController extends Controller
 {
     public function index()
     {
+        if (Auth::check()) {
+            $user = Auth::user();
+            switch ($user->role) {
+                case 'admin':
+                    return redirect('admin')->with('success', 'Welcome back, Admin!');
+                case 'vendor':
+                    return redirect('vendor')->with('success', 'Welcome back, Vendor!');
+                case 'customer':
+                    return redirect('home')->with('success', 'Welcome back, Customer!');
+                default:
+                    return redirect('/')->with('success', 'Welcome back!');
+            }
+        }
+
         return view('auth.login');
     }
 

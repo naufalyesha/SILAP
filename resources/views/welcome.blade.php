@@ -82,9 +82,34 @@
             <i class="fas fa-user dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown"
                 aria-expanded="false"></i>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                <a href="/login" class="dropdown-item custom-dropdown-item">Login</a>
+                @if (Auth::check())
+                    @switch(Auth::user()->role)
+                        @case('admin')
+                            <a href="/admin" class="dropdown-item custom-dropdown-item">Dashboard Admin</a>
+                        @break
+
+                        @case('vendor')
+                            <a href="/vendor" class="dropdown-item custom-dropdown-item">Dashboard Vendor</a>
+                        @break
+
+                        @case('customer')
+                            <a href="/home" class="dropdown-item custom-dropdown-item">Your Page</a>
+                        @break
+
+                        @default
+                            <a href="/" class="dropdown-item custom-dropdown-item">Dashboard</a>
+                    @endswitch
+                    <a href="{{ route('logout') }}" class="dropdown-item custom-dropdown-item"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                @else
+                    <a href="/login" class="dropdown-item custom-dropdown-item">Login</a>
+                @endif
             </div>
         </div>
+
 
     </header>
 
@@ -105,7 +130,6 @@
         </div>
 
     </section>
-
 
     <!-- home section end -->
 
@@ -409,6 +433,5 @@
     <script src="{{ asset('js/scriptLandingPage.js') }}"></script>
 </body>
 
->>>>>>> Stashed changes
 </html>
 >>>>>>> 2b74281d19b81fef71d8d75f9578824222c5cf11
