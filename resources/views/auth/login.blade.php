@@ -91,6 +91,11 @@
                 {{ session('success') }}
             </div>
         @endif
+        @if ($message = Session::get('failed'))
+            <div class="alert alert-danger">
+                {{ $message }}
+            </div>
+        @endif
         <form action="{{ route('login-process') }}" method="post">
             @csrf
             <input type="email" value="{{ old('email') }}" name="email" placeholder="Email">
@@ -105,6 +110,7 @@
         </form>
         <button class="register-btn" onclick="location.href='/register'">Register</button>
         <a href="#">Forgot Password?</a>
+        <a href="/">Continue as Guest!</a>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

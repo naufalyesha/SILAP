@@ -10,21 +10,23 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up()
-    {
-        Schema::create('complaints', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('vendor_id')->constrained('vendors');
-            $table->string('complaint');
-            $table->timestamps();
-        });
-    }
+{
+    Schema::create('complaints', function (Blueprint $table) {
+        $table->id();
+        $table->string('email');
+        $table->unsignedBigInteger('user_id')->constrained('users')->onDelete('cascade');
+        $table->unsignedBigInteger('lapangan_id')->constrained('lapangans')->onDelete('cascade');
+        $table->text('deskripsi');
+        $table->timestamps();
+    });
+}
+
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('complaint');
+        Schema::dropIfExists('complaints');
     }
 };

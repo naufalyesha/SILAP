@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('responses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('rating_id')->constrained('ratings');
+            $table->unsignedBigInteger('rating_id')->constrained('ratings');
             $table->string('comment');
             $table->timestamps();
         });

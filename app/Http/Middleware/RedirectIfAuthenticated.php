@@ -21,6 +21,11 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
+                $user = Auth::guard($guard)->user();
+                if ($user->banned) {
+                    Auth::guard($guard)->logout();
+                    return redirect()->route('login')->with('failed', 'Akun Anda telah diban. Alasan: ' . $user->ban_reason);
+                }
                 return redirect(RouteServiceProvider::HOME);
             }
         }

@@ -13,18 +13,22 @@ return new class extends Migration
     {
         Schema::create('ratings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lapangan_id')->constrained('lapangans');
-            $table->foreignId('rater_id')->constrained('users');
+            $table->string('email');
+            $table->unsignedBigInteger('lapangan_id')->constrained('lapangans')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id')->constrained('users')->onDelete('cascade');
             $table->integer('rate');
+            $table->string('ulasan')->nullable();
+            $table->string('jawaban')->nullable();
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('rating');
+        Schema::dropIfExists('ratings');
     }
 };

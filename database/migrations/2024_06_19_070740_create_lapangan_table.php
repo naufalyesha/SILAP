@@ -10,23 +10,30 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up()
-    {
-        Schema::create('lapangans', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('vendor_id')->constrained('vendors');
-            $table->foreignId('status_id')->constrained('statuses');
-            $table->integer('harga');
-            $table->string('deskripsi');
-            $table->string('fasilitas');
-            $table->timestamps();
-        });
-    }
+{
+    Schema::create('lapangans', function (Blueprint $table) {
+        $table->id();
+        $table->string('name');
+        $table->string('location');
+        $table->text('map')->nullable();
+        $table->string('photo')->nullable();
+        $table->string('type');
+        $table->text('description');
+        $table->text('facilities')->nullable();
+        $table->unsignedBigInteger('vendor_id'); // Menambahkan kolom vendor_id
+        $table->foreign('vendor_id')->references('id')->on('users')->onDelete('cascade'); // Menambahkan foreign key constraint
+        $table->timestamps();
+    });
+}
 
     /**
      * Reverse the migrations.
      */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('lapangan');
+        Schema::table('fields', function (Blueprint $table) {
+            $table->dropForeign(['vendor_id']);
+            $table->dropColumn('vendor_id');
+        });
     }
 };

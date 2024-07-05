@@ -11,11 +11,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pendapatans', function (Blueprint $table) {
+        Schema::create('finance_reports', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('vendor_id')->constrained('vendors');
-            $table->integer('history_pendapatan');
+            $table->unsignedBigInteger('user_id');
+            $table->decimal('revenue', 15, 2);
+            $table->decimal('operational_cost', 15, 2);
+            $table->decimal('maintenance_cost', 15, 2);
+            $table->decimal('other_cost', 15, 2);
+            $table->date('report_date');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -24,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pendapatan');
+        Schema::dropIfExists('pendapatans');
     }
 };

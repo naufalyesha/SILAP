@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +13,8 @@
             font-family: Arial, sans-serif;
         }
 
-        body, html {
+        body,
+        html {
             height: 100%;
         }
 
@@ -32,7 +34,7 @@
         }
 
         .form-container {
-            max-width: 600px; 
+            max-width: 600px;
             width: 500px;
         }
 
@@ -46,7 +48,8 @@
             margin: 10px 0 5px;
         }
 
-        input, select {
+        input,
+        select {
             width: 100%;
             padding: 10px;
             margin-bottom: 15px;
@@ -79,33 +82,56 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="form-container">
             <h1>Registrasi</h1>
             <form action="{{ route('register-process') }}" method="POST">
                 @csrf
-                <label for="nama">Username</label>
-                <input type="text" id="nama" name="nama" value="{{ old('nama') }}">
-                @error('nama')
-                    <small>{{ $message }}</small>
-                @enderror
-                
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" value="{{ old('email') }}">
                 @error('email')
-                    <small>{{ $message }}</small>
+                <small>{{ $message }}</small>
                 @enderror
-                
+
+                <label for="nama">Nama</label>
+                <input type="text" id="nama" name="nama" value="{{ old('nama') }}">
+                @error('nama')
+                <small>{{ $message }}</small>
+                @enderror
+
+                <label for="alamat">Alamat</label>
+                <input type="text" id="alamat" name="alamat" value="{{ old('alamat') }}">
+                @error('alamat')
+                <small>{{ $message }}</small>
+                @enderror
+
+                <label for="phone">Nomor Telepon</label>
+                <input type="text" id="phone" name="phone" value="{{ old('phone') }}">
+                @error('phone')
+                <small>{{ $message }}</small>
+                @enderror
+
+                <label for="role">Role</label>
+                <select id="role" name="role">
+                    <option value="customer">Customer</option>
+                    <option value="vendor">Vendor</option>
+                </select>
+                @error('role')
+                <small>{{ $message }}</small>
+                @enderror
+
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password">
                 @error('password')
-                    <small>{{ $message }}</small>
+                <small>{{ $message }}</small>
                 @enderror
-                <button type="submit">Daftar</button>                
+                <button type="submit">Daftar</button>
             </form>
-            <button class="login-btn" onclick="location.href='/login'">Back to Login</button>
+            <button class="login-btn" onclick="location.href='/login'">Login</button>
         </div>
     </div>
 </body>
+
 </html>

@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Vendor</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/style1.css') }}">
+    <!-- <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Halaman Registrasi Vendor</title>
     <style>
@@ -77,32 +83,37 @@
         .login-btn:hover {
             background-color: #007BB5;
         }
-    </style>
+    </style> -->
 </head>
+
 <body>
     <div class="container">
-        <div class="form-container">
-            <h1>Registrasi</h1>
-            <form action="{{ route('createVendors') }}" method="POST">
-                @csrf
-                <input type="number" id="owner_id" name="owner_id" value="1">
-
-                <label for="nama">Vendor Name</label>
-                <input type="text" id="nama" name="nama">
-                @error('nama')
-                    <small>{{ $message }}</small>
-                @enderror
-                
-                <label for="alamat">Address</label>
-                <input type="text" id="alamat" name="alamat">
-                @error('alamat')
-                    <small>{{ $message }}</small>
-                @enderror
-                
-                <button type="submit">Daftar</button>                
-            </form>
-            <!-- <button class="login-btn" onclick="location.href='/login'">Back to Login</button> -->
-        </div>
+        <h2 class="text-center">Pendaftaran Vendor</h2>
+        <form id="registerForm" method="POST" action="{{ route('createVendors') }}">
+            @csrf
+            <div class="form-group">
+                <label for="storeName"><b>Nama Vendor</b></label>
+                <input type="text" placeholder="Masukkan Nama Vendor" class="form-control" id="storeName" name="storeName" required>
+            </div>
+            <div class="form-group">
+                <label for="ownerName"><b>Nama Pemilik</b></label>
+                <input type="text" placeholder="Masukkan Nama Pemilik" class="form-control" id="ownerName" name="ownerName" required>
+            </div>
+            <div class="form-group">
+                <label for="phone"><b>Nomor Telepon</b></label>
+                <input type="tel" placeholder="Masukkan Nomor Telephone" class="form-control" id="phone" name="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="alamat"><b>Alamat</b></label>
+                <input type="text" placeholder="Masukkan Alamat" class="form-control" id="alamat" name="alamat" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Daftar</button>
+        </form>
+        <div id="message" class="mt-3"></div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
