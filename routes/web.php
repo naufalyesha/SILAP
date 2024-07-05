@@ -1,13 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-<<<<<<< Updated upstream
-=======
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\UserController;
-use App\Models\Vendor;
->>>>>>> Stashed changes
 
 /*
 |--------------------------------------------------------------------------
@@ -23,8 +20,6 @@ use App\Models\Vendor;
 Route::get('/', function () {
     return view('welcome');
 });
-<<<<<<< Updated upstream
-=======
 
 Route::middleware(['guest'])->group(function () {
     //login
@@ -95,4 +90,3 @@ Route::middleware(['auth', 'role:vendor'])->group(function () {
     //Vendor Read Laporan dan Statistik Keuangan
     Route::get('/vendor/finance-reports', [VendorController::class, 'indexPendapatan'])->name('finance_reports.index'); //belom (nunggu tabel pembayaran user)
 });
->>>>>>> Stashed changes

@@ -18,7 +18,7 @@
                                     </div>
                                 </div>
                                 <div class="col-6 align-self-end text-end">
-                                    <img src="{{ asset('image/image.jpeg') }}" class="img-fluid illustration-img"
+                                    <img src="{{ asset('image/customer-support.jpg') }}" class="img-fluid illustration-img"
                                         alt="">
                                 </div>
                             </div>

@@ -76,7 +76,7 @@
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
                             <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
-                                <img src="{{ asset('image/profile.jpeg') }}" class="avatar img-fluid rounded"
+                                <img src="{{ asset('image/profile.jpg') }}" class="avatar img-fluid rounded"
                                     alt="">
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
