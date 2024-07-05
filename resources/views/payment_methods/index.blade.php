@@ -39,12 +39,22 @@
                 <div class="modal-body">
                     <form id="addPaymentMethodForm">
                         <div class="form-group">
-                            <label for="bankName">Nama Bank</label>
-                            <input type="text" class="form-control" id="bankName" required>
+                            <label for="paymentType">Tipe Pembayaran</label>
+                            <select class="form-control" id="paymentType" required>
+                                <option value="">Pilih Tipe</option>
+                                <option value="bank">Transfer Bank</option>
+                                <option value="qris">QRIS</option>
+                            </select>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" id="bankDetails">
+                            <label for="bankName">Nama Bank</label>
+                            <input type="text" class="form-control" id="bankName">
                             <label for="accountNumber">Nomor Rekening</label>
-                            <input type="text" class="form-control" id="accountNumber" required>
+                            <input type="text" class="form-control" id="accountNumber">
+                        </div>
+                        <div class="form-group" id="qrisDetails">
+                            <label for="qrisImage">Unggah Gambar QRIS</label>
+                            <input type="file" class="form-control" id="qrisImage" accept="image/*">
                         </div>
                         <button type="submit" class="btn btn-primary mt-3">Tambah</button>
                     </form>

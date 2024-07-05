@@ -2,8 +2,12 @@
 
 @section('content')
     <div class="container">
-        <h3>Daftar Lapangan</h3>
+        <div class="container-fluid">
+            <h3>Daftar Lapangan</h3>
+        </div>
         <a href="{{ route('lapangans.create') }}" class="btn btn-primary">Tambah</a>
+        <br>
+        <br>
         <table class="table table-bordered">
             <thead>
                 <tr>

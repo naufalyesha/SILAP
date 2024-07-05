@@ -1,8 +1,8 @@
 @extends('layout.vendor.app')
 
 @section('content')
-    <div class="container mt-5">
-        <div class="mb-4">
+    <div class="container mt-2">
+        <div class="mb-3">
             <!-- Tabel untuk menyimpan hasil -->
             <h3>Jadwal Lapangan</h3>
             <a href="{{ route('schedules.create') }}" class="btn btn-primary">Tambah</a>

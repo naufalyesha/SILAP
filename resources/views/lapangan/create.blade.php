@@ -4,8 +4,7 @@
     <div class="mb-4">
         <div class="container">
             <h3>Tambah Lapangan</h3>
-            <form id="lapanganForm" action="{{ route('lapangans.store') }}" method="POST"
-                enctype="multipart/form-data">
+            <form id="lapanganForm" action="{{ route('lapangans.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label for="name">Nama Lapangan</label>

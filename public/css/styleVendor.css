@@ -124,6 +124,15 @@ a.sidebar-link {
     width: 100vw;
 }
 
+.profile-info {
+    color: #ffffff;
+}
+
+.profile-info h2,
+.profile-info p {
+    margin: 0.5rem 0;
+}
+
 @media (min-width:768px) {
     .content {
         max-width: auto;
@@ -201,7 +210,8 @@ html[data-bs-theme="light"] .theme-toggle .fa-sun {
     display: none;
 
 }
-.form-section{
+
+.form-section {
     margin-bottom: 20px;
     padding: 20px;
     border: 1px solid #ccc;
