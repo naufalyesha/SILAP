@@ -21,8 +21,11 @@ class User extends Authenticatable
         'role',
         'password',
         'nama',
+        'kota',
         'alamat',
-        'phone',     
+        'phone',
+        'google_map_link',
+        'profile_photo'     
     ];
     public function lapangans()
     {

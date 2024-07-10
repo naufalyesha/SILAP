@@ -54,6 +54,8 @@ Route::middleware(['guest'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     //logout
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout'); //done
+    //Edit Profile
+    Route::put('/profile/update', [VendorController::class, 'updateProfile'])->name('profile.update'); //done
     //User
     Route::get('/admin', [AdminController::class, 'admin'])->middleware('userAccess:admin')->name('admin'); //done
     Route::get('/vendor', [VendorController::class, 'vendor'])->middleware('userAccess:vendor')->name('vendor'); //done
@@ -81,10 +83,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 });
 
 Route::middleware(['auth', 'role:vendor'])->group(function () {
-    //Vendor CRUD Profile
-    Route::put('/profile/update', [VendorController::class, 'updateProfile'])->name('profile.update'); //done
     //Vendor Reset Password
-    
+
     //Vendor CRUD lapangan
     Route::get('/vendor/lapangans', [VendorController::class, 'indexLapangan'])->name('vendor.lapangans'); //done
     Route::get('/vendor/lapangans/create', [VendorController::class, 'createLapangan'])->name('lapangans.create'); //done

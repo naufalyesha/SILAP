@@ -211,6 +211,23 @@ section {
     padding-left: 30px;
 }
 
+.search-select {
+    margin-left: 10px;
+    padding: 10px;
+    padding-left: 30px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px;
+    background-color: #fff;
+    color: #333;
+}
+
+.search-select option {
+    padding: 10px; 
+    background-color: #fff; 
+    color: #333; 
+}
+
 .search-wrapper {
     position: relative;
     display: inline-block;
@@ -218,7 +235,7 @@ section {
 
 .search-wrapper .fa-location-dot {
     position: absolute;
-    left: 10px;
+    left: 20px;
     top: 50%;
     transform: translateY(-50%);
     color: #aaa;
@@ -236,20 +253,11 @@ section {
 
 .search-wrapper .fa-futbol {
     position: absolute;
-    left: 10px;
+    left: 20px;
     top: 50%;
     transform: translateY(-50%);
     color: #aaa;
     /* Adjust color as needed */
-}
-
-.search-select {
-    margin-left: 10px;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #fff;
-    color: #333;
 }
 
 .search-button {
@@ -351,6 +359,16 @@ section {
     padding: 15px;
 }
 
+.venue-info a{
+    background-color: #184796;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 1rem 1.7rem 1rem 1.7rem;
+    box-shadow: 0 4px 8px 2px rgba(0, 0, 0, .4);
+    border-radius: 2rem;
+}
+
 .venue-type {
     color: #999;
     font-size: 12px;
@@ -449,6 +467,16 @@ h3 {
 
 .about .content strong {
     color: #333;
+}
+
+.content-box a {
+    background-color: #184796;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 1rem 1.7rem 1rem 1.7rem;
+    box-shadow: 0 4px 8px 2px rgba(0, 0, 0, .4);
+    border-radius: 2rem;
 }
 
 .faq {

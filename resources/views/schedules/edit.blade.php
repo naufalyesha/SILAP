@@ -1,5 +1,9 @@
 @extends('layout.vendor.app')
 
+@section('title')
+    <title>Jadwal dan Harga</title>
+@endsection
+
 @section('content')
     <div class="container mt-5">
         <div class="mb-4">

@@ -1,7 +1,7 @@
 @extends('layout/vendor/app')
 
 @section('title')
-    <title>Dashboard Vendor</title>
+    <title>Dasbor Vendor</title>
 
 @section('content')
     <main class="content px-3 py-2">

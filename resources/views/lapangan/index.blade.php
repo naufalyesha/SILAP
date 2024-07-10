@@ -1,5 +1,9 @@
 @extends('layout/vendor/app')
 
+@section('title')
+    <title>Data Lapangan</title>
+@endsection
+
 @section('content')
     <div class="container">
         <div class="container-fluid">
@@ -26,7 +30,18 @@
                         <td>{{ $l->name }}</td>
                         <td>{{ $l->location }}</td>
                         <td>
-                            <img src="{{ asset('images/' . $l->photo) }}" alt="{{ $l->name }}" width="100">
+                            @if (!empty($l->photo))
+                                @php
+                                    $photos = json_decode($l->photo, true);
+                                @endphp
+                                @if (!empty($photos))
+                                    <img src="{{ asset('images/' . $photos[0]) }}" alt="{{ $l->name }}" width="100">
+                                @else
+                                    <span>No photo available</span>
+                                @endif
+                            @else
+                                <span>No photo available</span>
+                            @endif
                         </td>
                         <td>{{ $l->type }}</td>
                         <td>{{ $l->description }}</td>
@@ -43,6 +58,7 @@
                     </tr>
                 @endforeach
             </tbody>
+
         </table>
         {{ $lapangan->links() }} <!-- Menampilkan pagination jika lebih dari 5 item -->
     </div>

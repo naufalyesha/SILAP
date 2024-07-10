@@ -19,22 +19,25 @@
             <!-- Content For Sidebar -->
             <div class="h-100">
                 <div class="sidebar-logo">
-                    <a href="{{ route('vendor') }}">{{ Auth::user()->nama }}</a>
+                    <a href="{{ route('vendor') }}" style="text-decoration: none; color: #ebe9e9; font-weight: bold;">
+                        {{ Auth::user()->nama }}
+                    </a>
                 </div>
+
                 <ul class="sidebar-nav">
-                    <li class="sidebar-header">
+                    {{-- <li class="sidebar-header">
                         Vendor Elements
-                    </li>
+                    </li> --}}
                     <li class="sidebar-item">
                         <a href="{{ route('vendor') }}" class="sidebar-link collapsed">
                             <i class="fa-solid fa-list pe-2"></i>
-                            Dashboard
+                            Dasbor
                         </a>
                     </li>
                     <li class="sidebar-item">
                         <a href="{{ route('vendor.lapangans') }}" class="sidebar-link collapsed"
                             data-bs-target="#pages"><i class="fa-regular fa-square-caret-up"></i>
-                            Post Lapangan
+                            Data Lapangan
                         </a>
                     </li>
                     <li class="sidebar-item">
@@ -57,12 +60,12 @@
                             Metode Pembayaran
                         </a>
                     </li> --}}
-                    <li class="sidebar-item">
+                    {{-- <li class="sidebar-item">
                         <a href="{{ route('vendor_interactions.index') }}" class="sidebar-link"
                             data-bs-target="#auth"><i class="fa-regular fa-comments"></i>
-                            Interaksi User
+                            Interaksi
                         </a>
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
         </aside>
@@ -76,17 +79,22 @@
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item dropdown">
                             <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
-                                <img src="{{ asset('image/profile.jpg') }}" class="avatar img-fluid rounded"
-                                    alt="">
+                                @if (Auth::check())
+                                    <img src="{{ asset('storage/' . Auth::user()->profile_photo) }}" class="avatar img-fluid rounded"
+                                        alt="Profile Image">
+                                @else
+                                    <img src="{{ asset('image/profile.jpg') }}" class="avatar img-fluid rounded"
+                                        alt="Profile Image">
+                                @endif
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
                                 {{-- modal profil  --}}
                                 <a href="#" class="dropdown-item" data-bs-toggle="modal"
-                                    data-bs-target="#profileModal">Profile</a>
+                                    data-bs-target="#profileModal">Profil</a>
                                 {{-- modal reset password  --}}
                                 {{-- <a href="#" class="dropdown-item" data-bs-toggle="modal"
                                     data-bs-target="#resetPasswordModal">Reset Password</a> --}}
-                                <a href="/logout" class="dropdown-item">Logout</a>
+                                <a href="/logout" class="dropdown-item">Keluar</a>
                             </div>
                         </li>
                     </ul>
@@ -107,27 +115,33 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="profileModalLabel">Profile</h5>
+                        <h5 class="modal-title" id="profileModalLabel">Profil</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="text-center mb-4">
-                            <img src="{{ asset('image/profile.jpeg') }}" class="rounded-circle" alt="Profile Image"
-                                width="150" height="150">
+                            @if (Auth::check() && Auth::user()->profile_photo)
+                                <img src="{{ asset('storage/' . Auth::user()->profile_photo) }}" class="rounded-circle"
+                                    alt="Profile Image" width="150" height="150">
+                            @else
+                                <img src="{{ asset('image/profile.jpg') }}" class="rounded-circle" alt="Profile Image"
+                                    width="150" height="150">
+                            @endif
                         </div>
 
                         <div class="profile-info text-center mb-3">
-                            <h4>Nama: {{ old('nama', Auth::user()->nama) }}</h4>
-                            <p>Alamat: {{ old('alamat', Auth::user()->alamat) }}</p>
-                            <p>Nomor Handphone: {{ old('phone', Auth::user()->phone) }}</p>
-                            <p>Email: {{ old('email', Auth::user()->email) }}</p>
+                            <h4>{{ old('nama', Auth::user()->nama) }}</h4>
+                            <p>{{ old('alamat', Auth::user()->alamat) }}</p>
+                            <p>{{ old('phone', Auth::user()->phone) }}</p>
+                            <p>{{ old('email', Auth::user()->email) }}</p>
                         </div>
                         @if (session()->has('message'))
                             <div class="text-green-600 mb-4">{{ session('message') }}</div>
                         @endif
-                        <form id="editProfileForm" {{-- action="{{ route('profile.update') }}" method="POST" --}}>
-                            {{-- @csrf
-                            @method('PUT') --}}
+                        <form id="editProfileForm" action="{{ route('profile.update') }}" method="POST"
+                            enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
                             <div class="mb-3">
                                 <label for="nama" class="form-label">Nama</label>
                                 <input type="text" class="form-control" id="editNama" name="nama"
@@ -139,18 +153,18 @@
                                     value="{{ old('alamat', Auth::user()->alamat) }}">
                             </div>
                             <div class="mb-3">
-                                <label for="phone" class="form-label">Nomor Handphone</label>
+                                <label for="phone" class="form-label">Nomor Telepon</label>
                                 <input type="text" class="form-control" id="editNomorHandphone" name="phone"
-                                    value="{{ old('[phone]', Auth::user()->phone) }}">
+                                    value="{{ old('phone', Auth::user()->phone) }}">
                             </div>
-                            {{-- <div class="mb-3">
-                                <label for="editEmail" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="editEmail" name="email"
-                                    value="{{ $user->email }}">
-                            </div> --}}
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                            <div class="mb-3">
+                                <label for="profile_photo" class="form-label">Foto Profil</label>
+                                <input type="file" class="form-control" id="profile_photo" name="profile_photo">
+                            </div>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
                         </form>
+
                     </div>
                 </div>
             </div>
@@ -170,33 +184,37 @@
                         body: formData
                     })
                     .then(response => {
-                        console.log(response)
-                        if (response.status === 200) {
-                            var editNamaInput = document.getElementById('editNama'); //done (duplicate for others)
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.message) {
+                            var editNamaInput = document.getElementById('editNama');
                             var editNamaValue = editNamaInput.value;
                             var editAlamatInput = document.getElementById('editAlamat');
                             var editAlamatValue = editAlamatInput.value;
                             var editPhoneInput = document.getElementById('editNomorHandphone');
                             var editPhoneValue = editPhoneInput.value;
-                            // Update the profile info display
-                            document.querySelector('.profile-info h4').textContent = `Nama: ${editNamaValue}`;
-                            document.querySelector('.profile-info p:nth-child(2)').textContent =
-                                `Alamat: ${editAlamatValue}`;
-                            document.querySelector('.profile-info p:nth-child(3)').textContent =
-                                `Nomor Handphone: ${editPhoneValue}`;
+                            var profileImage = document.querySelector('.modal-body .text-center img');
 
-                            // Close the modal
+                            document.querySelector('.profile-info h4').textContent = `${editNamaValue}`;
+                            document.querySelector('.profile-info p:nth-child(2)').textContent =
+                                `${editAlamatValue}`;
+                            document.querySelector('.profile-info p:nth-child(3)').textContent =
+                                `${editPhoneValue}`;
+                            profileImage.src = `{{ asset('storage/${data.user.profile_photo}') }}`;
+
                             let modal = bootstrap.Modal.getInstance(document.getElementById('profileModal'));
                             modal.hide();
                         } else {
-                            // Handle validation errors
                             console.error(data.errors);
                         }
                     })
                     .catch(error => console.error('Error:', error));
             });
         </script>
-
 
         <!-- Reset Password Modal -->
         {{-- <div class="modal fade" id="resetPasswordModal" tabindex="-1" aria-labelledby="resetPasswordModalLabel"

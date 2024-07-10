@@ -135,9 +135,9 @@
                     <small>{{ $message }}</small>
                 @enderror
 
-                <label for="role">Role</label>
+                <label for="role">Daftar Sebagai</label>
                 <select id="role" name="role" onchange="toggleGoogleMapLink()">
-                    <option value="customer">Customer</option>
+                    <option value="customer">Pelanggan</option>
                     <option value="vendor">Vendor</option>
                 </select>
                 @error('role')
@@ -145,10 +145,54 @@
                 @enderror
 
                 <div id="google-map-link-container" class="hidden">
-                    <label for="google_map_link">Google Map Link</label>
+                    <label for="google_map_link">Tautan Google Map</label>
                     <input type="text" id="google_map_link" name="google_map_link"
                         value="{{ old('google_map_link') }}">
                     @error('google_map_link')
+                        <small>{{ $message }}</small>
+                    @enderror
+                </div>
+
+                <div id="kota-container" class="hidden">
+                    <label for="kota">Kota/Kabupaten</label>
+                    <select id="kota" name="kota" class="form-control">
+                        <option value="">Pilih Kota/Kabupaten</option>
+                        <option value="Kota Semarang">Kota Semarang</option>
+                        <option value="Kota Surakarta (Solo)">Kota Surakarta (Solo)</option>
+                        <option value="Kota Magelang">Kota Magelang</option>
+                        <option value="Kota Salatiga">Kota Salatiga</option>
+                        <option value="Kota Pekalongan">Kota Pekalongan</option>
+                        <option value="Kota Tegal">Kota Tegal</option>
+                        <option value="Kabupaten Cilacap">Kabupaten Cilacap</option>
+                        <option value="Kabupaten Kebumen">Kabupaten Kebumen</option>
+                        <option value="Kabupaten Purbalingga">Kabupaten Purbalingga</option>
+                        <option value="Kabupaten Banjarnegara">Kabupaten Banjarnegara</option>
+                        <option value="Kabupaten Wonosobo">Kabupaten Wonosobo</option>
+                        <option value="Kabupaten Temanggung">Kabupaten Temanggung</option>
+                        <option value="Kabupaten Kendal">Kabupaten Kendal</option>
+                        <option value="Kabupaten Batang">Kabupaten Batang</option>
+                        <option value="Kabupaten Demak">Kabupaten Demak</option>
+                        <option value="Kabupaten Jepara">Kabupaten Jepara</option>
+                        <option value="Kabupaten Pati">Kabupaten Pati</option>
+                        <option value="Kabupaten Kudus">Kabupaten Kudus</option>
+                        <option value="Kabupaten Rembang">Kabupaten Rembang</option>
+                        <option value="Kabupaten Blora">Kabupaten Blora</option>
+                        <option value="Kabupaten Grobogan">Kabupaten Grobogan</option>
+                        <option value="Kabupaten Sragen">Kabupaten Sragen</option>
+                        <option value="Kabupaten Boyolali">Kabupaten Boyolali</option>
+                        <option value="Kabupaten Klaten">Kabupaten Klaten</option>
+                        <option value="Kabupaten Sukoharjo">Kabupaten Sukoharjo</option>
+                        <option value="Kabupaten Wonogiri">Kabupaten Wonogiri</option>
+                        <option value="Kabupaten Karanganyar">Kabupaten Karanganyar</option>
+                        <option value="Kabupaten Purwodadi">Kabupaten Purwodadi</option>
+                        <option value="Kabupaten Ambarawa">Kabupaten Ambarawa</option>
+                        <option value="Kabupaten Ungaran">Kabupaten Ungaran</option>
+                        <option value="Kabupaten Brebes">Kabupaten Brebes</option>
+                        <option value="Kabupaten Pemalang">Kabupaten Pemalang</option>
+                        <option value="Kabupaten Tegal">Kabupaten Tegal</option>
+                    </select>
+                    
+                    @error('kota')
                         <small>{{ $message }}</small>
                     @enderror
                 </div>
@@ -161,22 +205,32 @@
 
                 <button type="submit">Daftar</button>
             </form>
-            <button class="login-btn" onclick="location.href='/login'">Login</button>
+            <button class="login-btn" onclick="location.href='/login'">Masuk</button>
         </div>
     </div>
 
     <script>
-        function toggleGoogleMapLink() {
+        function toggleHiddenForms() {
             var role = document.getElementById('role').value;
             var googleMapLinkContainer = document.getElementById('google-map-link-container');
+            var kotaContainer = document.getElementById('kota-container');
 
             if (role === 'vendor') {
                 googleMapLinkContainer.classList.remove('hidden');
+                kotaContainer.classList.remove('hidden');
             } else {
                 googleMapLinkContainer.classList.add('hidden');
+                kotaContainer.classList.add('hidden');
             }
         }
+
+        // Event listener to handle role change
+        document.getElementById('role').addEventListener('change', toggleHiddenForms);
+
+        // Initial call to set the correct state based on the initial role value
+        toggleHiddenForms();
     </script>
+
 </body>
 
 </html>

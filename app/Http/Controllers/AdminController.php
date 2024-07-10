@@ -15,6 +15,27 @@ class AdminController extends Controller
         return view('admin/dashboard');
     }
 
+    // public function updateProfileAdmin(Request $request)
+    // {
+    //     $request->validate([
+    //         'nama' => 'required|string|max:255',
+    //         'alamat' => 'required|string|max:255',
+    //         'phone' => 'required|string|max:15',
+    //     ]);
+
+    //     $user = Auth::user();
+    //     $user->update([
+    //         'nama' => $request->nama,
+    //         'alamat' => $request->alamat,
+    //         'phone' => $request->phone,
+    //     ]);
+
+    //     return response()->json([
+    //         'success' => true,
+    //         'user' => $user,
+    //     ]);
+    // }
+
     // Melihat Daftar Vendor (Read) //done
     public function indexVendorManagement()
     {

@@ -16,7 +16,7 @@ return new class extends Migration
         $table->string('name');
         $table->string('location');
         $table->text('map')->nullable();
-        $table->string('photo')->nullable();
+        $table->json('photo');
         $table->string('type');
         $table->text('description');
         $table->text('facilities')->nullable();
@@ -31,9 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('fields', function (Blueprint $table) {
-            $table->dropForeign(['vendor_id']);
-            $table->dropColumn('vendor_id');
-        });
+        Schema::dropIfExists('lapangans');
     }
 };
