@@ -10,22 +10,23 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up()
-{
-    Schema::create('schedules', function (Blueprint $table) {
-        $table->id();
-        $table->unsignedBigInteger('lapangan_id');
-        $table->unsignedBigInteger('vendor_id'); 
-        $table->time('start_time');
-        $table->time('end_time');
-        $table->date('date');
-        $table->decimal('price', 10, 2);
-        $table->timestamps();
+    {
+        Schema::create('schedules', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('lapangan_id');
+            $table->unsignedBigInteger('vendor_id');
+            $table->boolean('booked')->default(false);
+            $table->time('start_time');
+            $table->time('end_time');
+            $table->date('date');
+            $table->decimal('price', 10, 2);
+            $table->timestamps();
 
-        // Foreign key constraints
-        $table->foreign('lapangan_id')->references('id')->on('lapangans')->onDelete('cascade');
-        $table->foreign('vendor_id')->references('id')->on('users')->onDelete('cascade'); 
-    });
-}
+            // Foreign key constraints
+            $table->foreign('lapangan_id')->references('id')->on('lapangans')->onDelete('cascade');
+            $table->foreign('vendor_id')->references('id')->on('users')->onDelete('cascade');
+        });
+    }
 
     /**
      * Reverse the migrations.

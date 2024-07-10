@@ -85,13 +85,59 @@ section {
     color: #184796;
 }
 
-.nav-icon i {
+.nav-icons {
+    display: flex;
+    align-items: center;
+}
+
+.nav-link.cart-icon {
+    color: black;
+    /* Warna hitam */
+    margin-right: 15px;
+    /* Jarak antar ikon */
+}
+
+.nav-link.cart-icon i {
+    font-size: 25px;
+    /* Ukuran ikon */
+}
+
+.nav-link.user-icon {
+    color: black;
+    /* Warna hitam untuk ikon user */
+    margin-right: 0;
+    /* Hilangkan margin kanan */
+    border: none;
+    /* Hilangkan border */
+    background: none;
+    /* Hilangkan background */
+    outline: none;
+    /* Hilangkan outline */
+}
+
+.nav-link.user-icon i {
+    font-size: 25px;
+    /* Ukuran ikon user */
+}
+
+.nav-link.user-icon:hover {
+    color: #184796;
+    cursor: pointer;
+    /* Warna biru saat di-hover */
+}
+
+.nav-link.user-icon::after {
+    display: none;
+    /* Hilangkan ikon dropdown dari ikon user */
+}
+
+.nav-icons i {
     font-size: 22px;
     margin-right: 20px;
     /* transition: all .5s; */
 }
 
-.nav-icon i:hover {
+.nav-icons i:hover {
     color: #184796;
 }
 
@@ -100,6 +146,7 @@ section {
     cursor: pointer;
     display: none;
 }
+
 
 .home {
     width: 100%;

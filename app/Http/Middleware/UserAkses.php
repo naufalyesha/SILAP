@@ -21,7 +21,7 @@ class UserAkses
                 return $next($request);
             } else {
                 // Arahkan pengguna yang tidak memiliki peran yang sesuai
-                return redirect('/')->with('failed', 'Anda tidak memiliki akses ke halaman ini.');
+                return redirect('/');
             }
         } else {
             // Arahkan pengguna yang belum login ke halaman login

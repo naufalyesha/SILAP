@@ -20,6 +20,10 @@ class Lapangan extends Model
         'vendor_id',
     ];
 
+    public function schedules()
+    {
+        return $this->hasMany(Schedule::class);
+    }
     public function vendor()
     {
         return $this->belongsTo(User::class, 'vendor_id');

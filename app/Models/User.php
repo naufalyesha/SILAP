@@ -20,7 +20,6 @@ class User extends Authenticatable
         'email',
         'role',
         'password',
-        'role',
         'nama',
         'alamat',
         'phone',     

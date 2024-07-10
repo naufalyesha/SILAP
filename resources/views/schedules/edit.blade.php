@@ -50,3 +50,16 @@
         </div>
     </div>
 @endsection
+
+@section('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        @if ($errors->any())
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '{{ $errors->first() }}',
+            });
+        @endif
+    </script>
+@endsection

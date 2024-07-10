@@ -4,42 +4,55 @@
     <main class="content px-3 py-2">
         <div class="container-fluid">
             <div class="mb-3">
-                <h4>Pengaduan User</h4>
+                <h4>Pesan Customer</h4>
             </div>
             <div class="row">
             </div>
             <!-- Table Element -->
             <div class="card border-0">
                 <div class="card-body">
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                     <table class="table">
                         <thead>
                             <tr>
                                 <th scope="col">No</th>
-                                <th scope="col">User</th>
-                                <th scope="col">Aduan</th>
-                                <th scope="col">Vendor</th>
+                                <th scope="col">Nama</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Pesan</th>
+                                <th scope="col">Tanggal</th>
+                                <th scope="col">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td colspan="2">Larry the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
+                            @forelse($messages as $index => $message)
+                                <tr>
+                                    <th scope="row">{{ $index + 1 }}</th>
+                                    <td>{{ $message->name }}</td>
+                                    <td>{{ $message->email }}</td>
+                                    <td>{{ $message->message }}</td>
+                                    <td>{{ $message->created_at->format('d-m-Y H:i') }}</td>
+                                    <td>
+                                        <form action="{{ route('admin.response-vendor.delete', $message->id) }}" method="POST"
+                                            onsubmit="return confirm('Apakah Anda yakin ingin menghapus pesan ini?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="6">Tidak ada pesan.</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
+                    <!-- Pagination links -->
+                    {{ $messages->links() }}
                 </div>
             </div>
         </div>

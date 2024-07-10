@@ -19,7 +19,7 @@
             <!-- Content For Sidebar -->
             <div class="h-100">
                 <div class="sidebar-logo">
-                    <a href="{{ route('vendor') }}">Silap</a>
+                    <a href="{{ route('vendor') }}">{{ Auth::user()->nama }}</a>
                 </div>
                 <ul class="sidebar-nav">
                     <li class="sidebar-header">
@@ -45,7 +45,7 @@
                         <ul id="posts" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         </ul>
                     </li>
-                    <li class="sidebar-item">
+                    {{-- <li class="sidebar-item">
                         <a href="{{ route('finance_reports.index') }}" class="sidebar-link collapsed"
                             data-bs-target="#auth"><i class="fa-regular fa-flag"></i>
                             Laporan
@@ -56,7 +56,7 @@
                                 class="fa-regular fa-credit-card"></i>
                             Metode Pembayaran
                         </a>
-                    </li>
+                    </li> --}}
                     <li class="sidebar-item">
                         <a href="{{ route('vendor_interactions.index') }}" class="sidebar-link"
                             data-bs-target="#auth"><i class="fa-regular fa-comments"></i>
@@ -84,8 +84,8 @@
                                 <a href="#" class="dropdown-item" data-bs-toggle="modal"
                                     data-bs-target="#profileModal">Profile</a>
                                 {{-- modal reset password  --}}
-                                <a href="#" class="dropdown-item" data-bs-toggle="modal"
-                                    data-bs-target="#resetPasswordModal">Reset Password</a>
+                                {{-- <a href="#" class="dropdown-item" data-bs-toggle="modal"
+                                    data-bs-target="#resetPasswordModal">Reset Password</a> --}}
                                 <a href="/logout" class="dropdown-item">Logout</a>
                             </div>
                         </li>
@@ -115,44 +115,91 @@
                             <img src="{{ asset('image/profile.jpeg') }}" class="rounded-circle" alt="Profile Image"
                                 width="150" height="150">
                         </div>
+
                         <div class="profile-info text-center mb-3">
-                            <h4>Nama: John Doe</h4>
-                            <p>Alamat: Jl. Kebon Jeruk No. 10, Jakarta</p>
-                            <p>Nomor Handphone: 081234567890</p>
-                            <p>Email: john.doe@example.com</p>
+                            <h4>Nama: {{ old('nama', Auth::user()->nama) }}</h4>
+                            <p>Alamat: {{ old('alamat', Auth::user()->alamat) }}</p>
+                            <p>Nomor Handphone: {{ old('phone', Auth::user()->phone) }}</p>
+                            <p>Email: {{ old('email', Auth::user()->email) }}</p>
                         </div>
-                        <form id="editProfileForm">
+                        @if (session()->has('message'))
+                            <div class="text-green-600 mb-4">{{ session('message') }}</div>
+                        @endif
+                        <form id="editProfileForm" {{-- action="{{ route('profile.update') }}" method="POST" --}}>
+                            {{-- @csrf
+                            @method('PUT') --}}
                             <div class="mb-3">
-                                <label for="editNama" class="form-label">Nama</label>
-                                <input type="text" class="form-control" id="editNama" value="John Doe">
+                                <label for="nama" class="form-label">Nama</label>
+                                <input type="text" class="form-control" id="editNama" name="nama"
+                                    value="{{ old('nama', Auth::user()->nama) }}">
                             </div>
                             <div class="mb-3">
-                                <label for="editAlamat" class="form-label">Alamat</label>
-                                <input type="text" class="form-control" id="editAlamat"
-                                    value="Jl. Kebon Jeruk No. 10, Jakarta">
+                                <label for="alamat" class="form-label">Alamat</label>
+                                <input type="text" class="form-control" id="editAlamat" name="alamat"
+                                    value="{{ old('alamat', Auth::user()->alamat) }}">
                             </div>
                             <div class="mb-3">
-                                <label for="editNomorHandphone" class="form-label">Nomor Handphone</label>
-                                <input type="text" class="form-control" id="editNomorHandphone"
-                                    value="081234567890">
+                                <label for="phone" class="form-label">Nomor Handphone</label>
+                                <input type="text" class="form-control" id="editNomorHandphone" name="phone"
+                                    value="{{ old('[phone]', Auth::user()->phone) }}">
                             </div>
-                            <div class="mb-3">
+                            {{-- <div class="mb-3">
                                 <label for="editEmail" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="editEmail"
-                                    value="john.doe@example.com">
-                            </div>
+                                <input type="email" class="form-control" id="editEmail" name="email"
+                                    value="{{ $user->email }}">
+                            </div> --}}
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
                         </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" onclick="saveProfile()">Save changes</button>
                     </div>
                 </div>
             </div>
         </div>
+        <script>
+            document.getElementById('editProfileForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                let formData = new FormData(this);
+
+                fetch('{{ route('profile.update') }}', {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'X-HTTP-Method-Override': 'PUT'
+                        },
+                        body: formData
+                    })
+                    .then(response => {
+                        console.log(response)
+                        if (response.status === 200) {
+                            var editNamaInput = document.getElementById('editNama'); //done (duplicate for others)
+                            var editNamaValue = editNamaInput.value;
+                            var editAlamatInput = document.getElementById('editAlamat');
+                            var editAlamatValue = editAlamatInput.value;
+                            var editPhoneInput = document.getElementById('editNomorHandphone');
+                            var editPhoneValue = editPhoneInput.value;
+                            // Update the profile info display
+                            document.querySelector('.profile-info h4').textContent = `Nama: ${editNamaValue}`;
+                            document.querySelector('.profile-info p:nth-child(2)').textContent =
+                                `Alamat: ${editAlamatValue}`;
+                            document.querySelector('.profile-info p:nth-child(3)').textContent =
+                                `Nomor Handphone: ${editPhoneValue}`;
+
+                            // Close the modal
+                            let modal = bootstrap.Modal.getInstance(document.getElementById('profileModal'));
+                            modal.hide();
+                        } else {
+                            // Handle validation errors
+                            console.error(data.errors);
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
+        </script>
+
 
         <!-- Reset Password Modal -->
-        <div class="modal fade" id="resetPasswordModal" tabindex="-1" aria-labelledby="resetPasswordModalLabel"
+        {{-- <div class="modal fade" id="resetPasswordModal" tabindex="-1" aria-labelledby="resetPasswordModalLabel"
             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -175,18 +222,16 @@
                                 <label for="confirmPassword" class="form-label">Konfirmasi Password Baru</label>
                                 <input type="password" class="form-control" id="confirmPassword">
                             </div>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Reset Password</button>
                         </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" onclick="resetPassword()">Reset
-                            Password</button>
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
     </div>
+    @yield('scripts')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

@@ -5,9 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Vendor;
 use App\Models\User;
-use App\Models\Pengaduan;
+
 
 class AdminController extends Controller
 {
@@ -49,17 +48,5 @@ class AdminController extends Controller
             return redirect()->route('admin.vendor-management')->with('success', 'Ban vendor berhasil dihapus');
         }
         return redirect()->route('admin.vendor-management')->with('error', 'Vendor tidak ditemukan');
-    }
-
-    // Melihat Pengaduan dari User (Read)
-    public function indexResponseUser()
-    {
-        return view('admin/response/indexUser');
-    }
-
-    // Melihat Pengaduan dari Vendor (Read)
-    public function indexResponseVendor()
-    {
-        return view('admin/response/indexVendor');
     }
 }

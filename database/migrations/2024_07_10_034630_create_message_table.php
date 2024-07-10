@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('jadwals', function (Blueprint $table) {
+        Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lapangan_id')->constrained('lapangans');
-            $table->time('start_time');
-            $table->time('end_time');
-            $table->date('date');
+            $table->string('name');
+            $table->string('email');
+            $table->text('message');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->timestamps();
+    
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('jadwal');
+        Schema::dropIfExists('messages');
     }
 };

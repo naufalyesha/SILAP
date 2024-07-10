@@ -10,8 +10,10 @@
                 <thead>
                     <tr>
                         <th>Lapangan</th>
+                        <th>Tersedia</th>
                         <th>Tanggal</th>
-                        <th>Jam</th>
+                        <th>Mulai</th>
+                        <th>Selesai</th>
                         <th>Harga</th>
                         <th>Aksi</th>
                     </tr>
@@ -20,6 +22,14 @@
                     @foreach ($schedules as $schedule)
                         <tr>
                             <td>{{ $schedule->lapangan->name }}</td>
+                            <td>
+                                @if ($schedule->booked == 0)
+                                    <span style="color: green;">Tersedia</span>
+                                @else
+                                    <span style="color: red;">Sudah Dipesan</span>
+                                @endif
+                            </td>
+                            <td>{{ $schedule->date }}</td>
                             <td>{{ $schedule->start_time }}</td>
                             <td>{{ $schedule->end_time }}</td>
                             <td>{{ $schedule->price }}</td>

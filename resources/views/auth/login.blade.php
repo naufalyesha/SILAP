@@ -12,7 +12,6 @@
             margin: 0;
             font-family: Arial, sans-serif;
             background-image: url('https://images.unsplash.com/photo-1629217855633-79a6925d6c47?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-            /* Ganti dengan URL gambar yang sesuai */
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -23,7 +22,6 @@
 
         .card {
             background-color: rgba(255, 255, 255, 0.9);
-            /* Warna putih dengan transparansi */
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
@@ -34,6 +32,12 @@
         .card h2 {
             margin-bottom: 25px;
             color: #333;
+        }
+
+        .card img {
+            width: 100px;
+            height: auto;
+            margin-bottom: 20px;
         }
 
         .card input[type="email"],
@@ -80,11 +84,21 @@
         .card a:hover {
             text-decoration: underline;
         }
+
+        .logo a {
+            color: #184796;
+            font-size: 35px;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
     </style>
 </head>
 
 <body>
     <div class="card">
+        <div class="logo">
+            <a href="/">SportField</a>
+        </div>
         <h2>Login</h2>
         @if (session('success'))
             <div class="alert alert-success">
@@ -109,7 +123,7 @@
             <button type="submit">Login</button>
         </form>
         <button class="register-btn" onclick="location.href='/register'">Register</button>
-        <a href="#">Forgot Password?</a>
+        <a href="{{ route('forgot-password') }}">Forgot Password?</a>
         <a href="/">Continue as Guest!</a>
     </div>
 
@@ -117,6 +131,15 @@
     @if ($message = Session::get('failed'))
         <script>
             Swal.fire(' {{ $message }} ');
+        </script>
+    @endif
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: '{{ session('success') }}',
+            });
         </script>
     @endif
 

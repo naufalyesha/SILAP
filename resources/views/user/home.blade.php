@@ -1,96 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layout/user/app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SportField</title>
-    <link rel="stylesheet" href="{{ asset('css/styleLandingPage.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <style>
-        .nav-icon {
-            position: relative;
-            display: inline-block;
-        }
-
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background-color: white;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            z-index: 1;
-        }
-
-        .nav-icon:hover .dropdown-menu {
-            display: block;
-        }
-
-        .dropdown-menu a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-
-        .dropdown-menu a:hover {
-            background-color: #f1f1f1;
-        }
-
-        .custom-dropdown-item {
-            padding: 10px 20px;
-            transition: background-color 0.3s ease;
-            font-size: 2em;
-        }
-
-        .custom-dropdown-item:hover {
-            background-color: #f8f9fa;
-            /* warna latar belakang saat dihover */
-            color: #343a40;
-            /* warna teks saat dihover */
-        }
-
-        .dropdown-toggle {
-            cursor: pointer;
-        }
-
-        .nav-icon .dropdown-toggle::after {
-            display: none;
-            /* Hapus panah dropdown default */
-        }
-    </style>
-</head>
-
-<body>
-
-    <header>
-        <div class="logo">
-            <a href="#">SportField</a>
-        </div>
-
-        <div class="navlist">
-            <li><a href="#home">Beranda</a></li>
-            <li><a href="#fields">Daftar Lapangan</a></li>
-            <li><a href="#about">Tentang Kami</a></li>
-            <li><a href="#faq">Faq</a></li>
-        </div>
-
-        <div class="nav-icon dropdown">
-            <i class="fas fa-user dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown"
-                aria-expanded="false"></i>
-            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                <a href="#" class="dropdown-item custom-dropdown-item">Profile</a>
-                <a href="#" class="dropdown-item custom-dropdown-item">Setting</a>
-                <a href="/logout" class="dropdown-item custom-dropdown-item">Logout</a>
-            </div>
-        </div>
-
-    </header>
-
-
+@section('content')
     <!-- home section start -->
 
     <section class="home" id="home">
@@ -98,7 +8,7 @@
         <div class="home-text">
             <h1>Penyewaan lapangan secara online</h1>
             <p>Rent our sports fields now and enjoy a fun sports experience!</p>
-            <a href="#fields" class="btn">Cari Lapangan</a>
+            <a href="#fields" class="btn ">Cari Lapangan</a>
         </div>
 
         <div class="home-img">
@@ -108,132 +18,115 @@
 
     </section>
 
-
     <!-- home section end -->
 
     <!-- fields section starts -->
 
     <section class="fields" id="fields">
-
         <h3 class="sub-heading">Venue yang terdaftar</h3>
         <h1 class="heading">Lapangan Olahraga</h1>
 
         <div class="search-container">
             <div class="search-wrapper">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Cari nama venue" class="search-input">
+                <input type="text" placeholder="Cari nama venue" class="search-input" id="search-name">
             </div>
             <div class="search-wrapper">
                 <i class="fa-solid fa-location-dot"></i>
-                <input type="text" placeholder="Lokasi" class="search-input">
+                <input type="text" placeholder="Lokasi" class="search-input" id="search-location">
             </div>
             <div class="search-wrapper">
                 <i class="fa-solid fa-futbol"></i>
-                <input type="text" placeholder="Olahraga" class="search-input">
-                <select class="search-select">
-                    <option value="football">Football</option>
-                    <option value="basketball">Basketball</option>
-                    <option value="tennis">Tennis</option>
+                <select class="search-select" id="search-sport-select">
+                    <option value="">All Sports</option>
+                    <option value="futsal">Futsal</option>
+                    <option value="basket">Basket</option>
+                    <option value="tenis">Tenis</option>
                     <option value="badminton">Badminton</option>
                 </select>
             </div>
-            <button class="search-button">Cari venue</button>
+            <button class="search-button" onclick="searchVenues()">Cari venue</button>
         </div>
-
         <br>
-        <div class="venue-grid">
-            <div class="venue-card">
-                <img src="{{ asset('image/2.jpg') }}" alt="Lapangan Generasi Baru">
-                <div class="venue-info">
-                    <p class="venue-type">Venue</p>
-                    <h3>Lapangan Generasi Baru</h3>
-                    <p class="venue-rating">⭐ 4.71 • Kota Jakarta Pusat</p>
-                    <p class="venue-sports">⚽ Futsal • 🏀 Basketball</p>
-                    <p class="venue-price">Mulai Rp215,000 / sesi</p>
+        <div class="venue-grid" id="venue-grid">
+            @foreach ($lapangans as $lapangan)
+                <div class="venue-card">
+                    <img src="{{ asset('images/' . $lapangan->photo) }}" alt="{{ $lapangan->name }}">
+                    <div class="venue-info">
+                        <p class="venue-type">Venue</p>
+                        <h3>{{ $lapangan->name }}</h3>
+                        <p class="venue-rating">⭐ 4.71 • {{ $lapangan->location }}</p>
+                        <p class="venue-sports">{{ $lapangan->type }}</p>
+                        <p class="venue-price">
+                            @if ($lapangan->schedules->isNotEmpty())
+                                Mulai Rp{{ number_format($lapangan->schedules->first()->price, 0, ',', '.') }} / sesi
+                            @else
+                                Harga tidak tersedia
+                            @endif
+                        </p>
+                        <a href="{{ route('detailLapangan', $lapangan->id) }}" class="btn btn-primary">Detail</a>
+                    </div>
                 </div>
-            </div>
-            <div class="venue-card">
-                <img src="{{ asset('image/2.jpg') }}" alt="Hall Bulu Tangkis Pasar Jatiwaras">
-                <div class="venue-info">
-                    <p class="venue-type">Venue</p>
-                    <h3>Hall Bulu Tangkis Pasar Jatiwaras</h3>
-                    <p class="venue-rating">⭐ 4.81 • Kota Jakarta Pusat</p>
-                    <p class="venue-sports">🏸 Badminton • 🏓 Tenis Meja</p>
-                    <p class="venue-price">Mulai Rp30,000 / sesi</p>
-                </div>
-            </div>
-            <div class="venue-card">
-                <img src="{{ asset('image/2.jpg') }}" alt="Mansion Sports Box Sunter">
-                <div class="venue-info">
-                    <p class="venue-type">Venue</p>
-                    <h3>Mansion Sports Box Sunter</h3>
-                    <p class="venue-rating">⭐ 4.87 • Kota Jakarta Utara</p>
-                    <p class="venue-sports">🏸 Badminton</p>
-                    <p class="venue-price">Mulai Rp70,000 / sesi</p>
-                </div>
-            </div>
-            <div class="venue-card">
-                <img src="{{ asset('image/2.jpg') }}" alt="Mansion Sports Box Sunter">
-                <div class="venue-info">
-                    <p class="venue-type">Venue</p>
-                    <h3>Mansion Sports Box Sunter</h3>
-                    <p class="venue-rating">⭐ 4.87 • Kota Jakarta Utara</p>
-                    <p class="venue-sports">🏸 Badminton</p>
-                    <p class="venue-price">Mulai Rp70,000 / sesi</p>
-                </div>
-            </div>
-            <div class="venue-card">
-                <img src="{{ asset('image/2.jpg') }}" alt="Mansion Sports Box Sunter">
-                <div class="venue-info">
-                    <p class="venue-type">Venue</p>
-                    <h3>Mansion Sports Box Sunter</h3>
-                    <p class="venue-rating">⭐ 4.87 • Kota Jakarta Utara</p>
-                    <p class="venue-sports">🏸 Badminton</p>
-                    <p class="venue-price">Mulai Rp70,000 / sesi</p>
-                </div>
-            </div>
-            <div class="venue-card">
-                <img src="{{ asset('image/2.jpg') }}" alt="Mansion Sports Box Sunter">
-                <div class="venue-info">
-                    <p class="venue-type">Venue</p>
-                    <h3>Mansion Sports Box Sunter</h3>
-                    <p class="venue-rating">⭐ 4.87 • Kota Jakarta Utara</p>
-                    <p class="venue-sports">🏸 Badminton</p>
-                    <p class="venue-price">Mulai Rp70,000 / sesi</p>
-                </div>
-            </div>
-            <div class="venue-card">
-                <img src="{{ asset('image/2.jpg') }}" alt="Mansion Sports Box Sunter">
-                <div class="venue-info">
-                    <p class="venue-type">Venue</p>
-                    <h3>Mansion Sports Box Sunter</h3>
-                    <p class="venue-rating">⭐ 4.87 • Kota Jakarta Utara</p>
-                    <p class="venue-sports">🏸 Badminton</p>
-                    <p class="venue-price">Mulai Rp70,000 / sesi</p>
-                </div>
-            </div>
-            <div class="venue-card">
-                <img src="{{ asset('image/2.jpg') }}" alt="Mansion Sports Box Sunter">
-                <div class="venue-info">
-                    <p class="venue-type">Venue</p>
-                    <h3>Mansion Sports Box Sunter</h3>
-                    <p class="venue-rating">⭐ 4.87 • Kota Jakarta Utara</p>
-                    <p class="venue-sports">🏸 Badminton</p>
-                    <p class="venue-price">Mulai Rp70,000 / sesi</p>
-                </div>
-            </div>
-            <div class="venue-card">
-                <img src="{{ asset('image/2.jpg') }}" alt="Mansion Sports Box Sunter">
-                <div class="venue-info">
-                    <p class="venue-type">Venue</p>
-                    <h3>Mansion Sports Box Sunter</h3>
-                    <p class="venue-rating">⭐ 4.87 • Kota Jakarta Utara</p>
-                    <p class="venue-sports">🏸 Badminton</p>
-                    <p class="venue-price">Mulai Rp70,000 / sesi</p>
-                </div>
-            </div>
+            @endforeach
+
+            {{ $lapangans->links() }}
         </div>
-        </div>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            function searchVenues() {
+                const name = document.getElementById('search-name').value;
+                const location = document.getElementById('search-location').value;
+                const sport = document.getElementById('search-sport-select').value;
+
+                fetch('{{ route('search.venues') }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify({
+                            name,
+                            location,
+                            sport
+                        })
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('No venues found or the vendor is banned');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        const venueGrid = document.getElementById('venue-grid');
+                        venueGrid.innerHTML = '';
+                        data.forEach(lapangan => {
+                            venueGrid.innerHTML += `
+                            <div class="venue-card">
+                                <img src="{{ asset('images/') }}/${lapangan.photo}" alt="${lapangan.name}">
+                                <div class="venue-info">
+                                    <p class="venue-type">Venue</p>
+                                    <h3>${lapangan.name}</h3>
+                                    <a href="{{ route('detailLapangan', '') }}/${lapangan.id}" class="stretched-link"></a>
+                                    <p class="venue-rating">⭐ 4.71 • ${lapangan.location}</p>
+                                    <p class="venue-sports">${lapangan.type}</p>
+                                    <p class="venue-price">
+                                        ${lapangan.schedules.length ? 'Mulai Rp' + new Intl.NumberFormat('id-ID').format(lapangan.schedules[0].price) + ' / sesi' : 'Harga tidak tersedia'}
+                                    </p>
+                                </div>
+                            </div>
+                        `;
+                        });
+                    })
+                    .catch(error => {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: error.message,
+                        });
+                    });
+            }
+        </script>
+
     </section>
 
 
@@ -362,53 +255,4 @@
             </div>
         </div>
     </section>
-
-    <section class="footer">
-
-        <div class="box-container">
-
-            <div class="box">
-                <h3>locations</h3>
-                <a href="#">india</a>
-                <a href="#">japan</a>
-                <a href="#">russia</a>
-                <a href="#">USA</a>
-                <a href="#">france</a>
-            </div>
-
-            <div class="box">
-                <h3>quick links</h3>
-                <a href="#">home</a>
-                <a href="#">dishes</a>
-                <a href="#">about</a>
-                <a href="#">menu</a>
-                <a href="#">review</a>
-                <a href="#">order</a>
-            </div>
-
-            <div class="box">
-                <h3>contact info</h3>
-                <a href="#">+123-456-789</a>
-                <a href="#">+123-456-789</a>
-                <a href="#">agustinusricad@gmail.com</a>
-                <a href="#">Semarang, Indonesia - 50275</a>
-            </div>
-
-            <div class="box">
-                <h3>follow us</h3>
-                <a href="#">facebook</a>
-                <a href="#">twitter</a>
-                <a href="#">instagram</a>
-                <a href="#">linkedin</a>
-            </div>
-
-
-        </div>
-
-        <div class="credit"> Made By | @ 2024 by <span>Naufal & Ricad</span>
-        </div>
-    </section>
-    <script src="{{ asset('js/scriptLandingPage.js') }}"></script>
-</body>
-
-</html>
+@endsection

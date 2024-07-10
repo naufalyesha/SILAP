@@ -1,0 +1,948 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --header-height: 3.5rem;
+}
+
+* {
+    font-family: "Montserrat", sans-serif;
+    text-decoration: none;
+    padding: 0;
+    margin: 0;
+    /* list-style: none; */
+    box-sizing: border-box;
+    text-transform: capitalize;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+    overflow-x: hidden;
+    scroll-padding-top: 5.5rem;
+    scroll-behavior: smooth;
+}
+
+body {
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    color: #000;
+}
+
+header {
+    position: fixed;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 5%;
+    z-index: 999;
+    background-color: #fff;
+    list-style: none;
+    /* background-color: aquamarine; */
+}
+
+section {
+    padding: 2rem 9%;
+}
+
+section:nth-child(even) {
+    background: #eee;
+}
+
+.sub-heading {
+    text-align: center;
+    color: #184796;
+    font-size: 2rem;
+}
+
+.heading {
+    text-align: center;
+    color: #192a56;
+    font-size: 3rem;
+    padding-bottom: .5rem;
+    text-transform: uppercase;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo a {
+    color: #184796;
+    font-size: 35px;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.navlist {
+    display: flex;
+    align-items: center;
+}
+
+.navlist a {
+    margin: 0 30px;
+    font-size: 17px;
+    color: #000;
+    transition: all .5s;
+    font-weight: 500;
+}
+
+.navlist a:hover {
+    color: #184796;
+}
+
+.nav-icon {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.nav-icon:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f1f1f1;
+}
+
+.custom-dropdown-item {
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+    font-size: 2em;
+}
+
+.custom-dropdown-item:hover {
+    background-color: #f8f9fa;
+    /* warna latar belakang saat dihover */
+    color: #343a40;
+    /* warna teks saat dihover */
+}
+
+.dropdown-toggle {
+    cursor: pointer;
+}
+
+.nav-icon .dropdown-toggle::after {
+    display: none;
+    /* Hapus panah dropdown default */
+}
+
+.nav-icons {
+    display: flex;
+    align-items: center;
+}
+
+.nav-link.cart-icon {
+    color: black;
+    /* Warna hitam */
+    margin-right: 15px;
+    /* Jarak antar ikon */
+}
+
+.nav-link.cart-icon i {
+    font-size: 25px;
+    /* Ukuran ikon */
+}
+
+.nav-link.user-icon {
+    color: black;
+    /* Warna hitam untuk ikon user */
+    margin-right: 0;
+    /* Hilangkan margin kanan */
+    border: none;
+    /* Hilangkan border */
+    background: none;
+    /* Hilangkan background */
+    outline: none;
+    /* Hilangkan outline */
+}
+
+.nav-link.user-icon i {
+    font-size: 25px;
+    /* Ukuran ikon user */
+}
+
+.nav-link.user-icon:hover {
+    color: #184796;
+    cursor: pointer;
+    /* Warna biru saat di-hover */
+}
+
+.nav-link.user-icon::after {
+    display: none;
+    /* Hilangkan ikon dropdown dari ikon user */
+}
+
+.nav-icons i {
+    font-size: 22px;
+    margin-right: 20px;
+    /* transition: all .5s; */
+}
+
+.nav-icons i:hover {
+    color: #184796;
+}
+
+.fa-bars {
+    font-size: 25px;
+    cursor: pointer;
+    display: none;
+}
+
+.home {
+    width: 100%;
+    height: 800px;
+    /* background-color: #bbb; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.home-text {
+    padding: 3rem;
+}
+
+.home-text h1 {
+    font-size: 50px;
+    padding-bottom: .5rem;
+    color: #184796;
+}
+
+
+.home-text span {
+    color: #184796;
+    text-decoration: underline;
+}
+
+.home-text p {
+    font-weight: 400;
+    font-size: 1.5rem;
+    padding-bottom: 2rem;
+    color: #666;
+}
+
+.home-img img {
+    padding: 8px;
+    height: 500px;
+}
+
+.home-text a {
+    background-color: #184796;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 1rem 1.7rem 1rem 1.7rem;
+    box-shadow: 0 4px 8px 2px rgba(0, 0, 0, .4);
+    border-radius: 2rem;
+}
+
+/* daftar lapangan */
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.search-input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 200px;
+    padding-left: 30px;
+}
+
+.search-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.search-wrapper .fa-location-dot {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #aaa;
+    /* Adjust color as needed */
+}
+
+.search-wrapper .fa-magnifying-glass {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #aaa;
+    /* Adjust color as needed */
+}
+
+.search-wrapper .fa-futbol {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #aaa;
+    /* Adjust color as needed */
+}
+
+.search-select {
+    margin-left: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #333;
+}
+
+.search-button {
+    background-color: #184796;
+    /* Green background */
+    border: none;
+    /* Remove borders */
+    color: white;
+    /* White text */
+    padding: 10px;
+    /* Some padding */
+    text-align: center;
+    /* Center the text */
+    text-decoration: none;
+    /* Remove underline */
+    display: inline-block;
+    /* Make the button appear inline */
+    /* font-size: 13px; */
+    /* Increase font size */
+    margin: 4px 2px;
+    /* Some margin */
+    cursor: pointer;
+    /* Pointer/hand icon */
+    border-radius: 4px;
+    /* Rounded corners */
+    transition: background-color 0.3s;
+    /* Transition for background color */
+}
+
+.search-button:hover {
+    background-color: #192a56;
+    /* Darker green on hover */
+}
+
+.fields {
+    background: #f2f2f2;
+}
+
+.fields .box-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
+    gap: 1.5rem;
+}
+
+.fields .box-container .box {
+    padding: 2.5rem;
+    background: #fff;
+    border-radius: .5rem;
+    border: .1rem solid rgba(0, 0, 0, .2);
+    box-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .1);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+
+.fields .box-container .box img {
+    height: 12rem;
+    margin: 1rem 0;
+}
+
+.fields .box-container .box h3 {
+    color: #184796;
+    font-size: 2.5rem;
+}
+
+.fields .box-container .box p {
+    font-size: 1.5rem;
+}
+
+.venue-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.venue-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 300px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.venue-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.venue-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.venue-info {
+    padding: 15px;
+}
+
+.venue-type {
+    color: #999;
+    font-size: 12px;
+    margin: 0;
+}
+
+h3 {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.venue-rating {
+    color: #f39c12;
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.venue-sports {
+    color: #555;
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.venue-price {
+    color: #333;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 10px 0 0 0;
+}
+
+.about {
+    padding: 30px 0;
+    background: #fff;
+}
+
+.about .heading {
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.about .sub-heading {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #666;
+}
+
+
+.about .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+    /* Add spacing between rows */
+}
+
+.about .image img {
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 20px;
+}
+
+.about .content {
+    max-width: 1000px;
+    text-align: left;
+}
+
+.about .content h3 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.about .content p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 10px;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+.about .content ul {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 10px;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+.about li {
+    list-style: none;
+}
+
+.about .content strong {
+    color: #333;
+}
+
+.faq {
+    background-color: #f2f2f2;
+}
+
+.faq-container {
+    width: 80%;
+    max-width: 1200px;
+    background-color: #184796;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.faq-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.faq-item {
+    border-bottom: 1px solid #ddd;
+    padding: 15px 0;
+}
+
+.faq-item:last-child {
+    border-bottom: none;
+}
+
+.faq-question {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+    cursor: pointer;
+    position: relative;
+}
+
+.faq-question::after {
+    content: "\f067";
+    /* FontAwesome plus icon */
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    position: absolute;
+    right: 0;
+}
+
+.faq-question.active::after {
+    content: "\f068";
+    /* FontAwesome minus icon */
+}
+
+.faq-answer {
+    display: none;
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.faq-answer p {
+    margin: 5px 0;
+}
+
+.faq-answer ol {
+    margin-left: 28px;
+}
+
+.footer .box-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    gap: 1.5rem;
+}
+
+.footer .box-container .box h3 {
+    padding: .5rem 0;
+    font-size: 2.5rem;
+    color: var(--black);
+}
+
+.footer .box-container .box a {
+    display: block;
+    padding: .5rem 0;
+    font-size: 1.5rem;
+    color: var(--light-color);
+}
+
+.footer .box-container .box a:hover {
+    color: var(--gr);
+    text-decoration: underline;
+}
+
+.footer .credit {
+    text-align: center;
+    border-top: .1rem solid rgba(0, 0, 0, .1);
+    font-size: 2rem;
+    color: var(--black);
+    padding: .5rem;
+    padding-top: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.footer .credit span {
+    color: var(--gr);
+}
+
+/* halaman booking */
+
+/* section boking lapangan start */
+
+.container-book {
+    padding-top: 50px;
+    width: 100%;
+    height: 800px;
+    /* background-color: #bbb; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-filter {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.content {
+    display: flex;
+    padding: 0 20px;
+    margin: 10px;
+}
+
+
+.image-container {
+    position: relative;
+    width: 50%;
+}
+
+.image-container img {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.image-overlay {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+
+.details {
+    width: 50%;
+    padding-left: 20px;
+    font-size: 15px;
+}
+
+.details h2 {
+    margin: 0 0 7px 0;
+}
+
+.details p {
+    margin: 0 0 7px 0;
+}
+
+.detail-location {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #e9ecef;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    justify-content: space-between;
+    /* align-content: center; */
+    padding: 10px 10px 5px 10px;
+}
+
+.location {
+    display: flex;
+    margin-bottom: 10px;
+    /* background-color: rebeccapurple; */
+}
+
+.location-map {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.location-map-container {
+    /* background-color: teal; */
+
+}
+
+.location-map i {
+    /* background-color: red; */
+    /* align-items: center; */
+    padding: 2px;
+    font-size: 24px;
+    color: #007bff;
+}
+
+.location-map p {
+    /* display: flex;
+    text-align: center; */
+    /* background-color: #ddd; */
+}
+
+.btn-schedule {
+    background-color: #184796;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    margin: 10px 0;
+}
+
+.calendar-container {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+/* .calendar-container,
+.schedule {
+    display: none;
+}
+
+.calendar-container.show,
+.schedule.show {
+    display: block;
+} */
+
+.day {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.day.selected {
+    background-color: #184796;
+    /* Burgundy color */
+    color: #fff;
+    border-radius: 5px;
+}
+
+.day:not(.selected):hover {
+    background-color: #f0f0f0;
+}
+
+.calendar-icon {
+    padding: 10px;
+    cursor: pointer;
+}
+
+
+.schedule {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.schedule-btn {
+    background-color: #fff;
+    border: 1px solid #184796;
+    border-radius: 5px;
+    padding: 10px;
+    flex: 1 1 30%;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+    /* Transition for smooth hover effect */
+}
+
+.schedule-btn:hover {
+    background-color: #184796;
+    /* Warna latar belakang saat hover */
+    border-color: #fff;
+    /* Warna border saat hover */
+    color: #fff;
+}
+
+
+.schedule-btn.booked {
+    background-color: #f0f0f0;
+    color: #ccc;
+    border: none;
+    cursor: not-allowed;
+}
+
+.schedule-btn.selected {
+    background-color: #184796;
+    /* Burgundy color */
+    color: #fff;
+}
+
+.btn-sewa {
+    background-color: #184796;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    margin: 10px 0;
+    width: 100%;
+}
+
+/* section booking lapangan end */
+
+/* section ulasan lapangan start */
+
+.ulasan {
+    background-color: #eee;
+}
+
+.ulasan form {
+    max-width: 90rem;
+    border-radius: .5rem;
+    box-shadow: var(--box-shadow);
+    border: .1rem solid rgba(0, 0, 0, .2);
+    background: #fff;
+    padding: 1.5rem;
+    margin: 0 auto;
+}
+
+.ulasan form span {
+    font-size: 2rem;
+}
+
+.rating .ulasan form .input input,
+.ulasan form .input textarea {
+    background: #eee;
+    border-radius: .5rem;
+    padding: 1rem;
+    font-size: 1.6rem;
+    color: var(--black);
+    text-transform: none;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+.ulasan input {
+    background-color: #184796;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    margin: 10px 0;
+    width: 10%;
+}
+
+.rating-star {
+    cursor: pointer;
+    size: 2rem;
+    font-size: 2em;
+    color: #ccc;
+}
+
+.rating-star.selected,
+.rating-star:hover,
+.rating-star:hover~.rating-star {
+    color: #f5b301;
+}
+
+.card-ulasan .slide .user {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    padding-bottom: 1.5rem;
+}
+
+.card-ulasan {
+    padding: 2rem;
+    box-shadow: var(--box-shadow);
+    border: .1rem solid rgba(0, 0, 0, .2);
+    border-radius: .5rem;
+    position: relative;
+    margin: 1rem 0;
+}
+
+.card-ulasan .fa-quote-right {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    font-size: 6rem;
+    color: #ccc;
+}
+
+.card-ulasan .user {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    padding-bottom: 1.5rem;
+}
+
+.card-ulasan .user img {
+    height: 7rem;
+    width: 7rem;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.card-ulasan .user h3 {
+    color: var(--black);
+    font-size: 2rem;
+    padding-bottom: .5rem;
+}
+
+.card-ulasan .user i {
+    font-size: 1.3rem;
+    color: var(--gr);
+}
+
+.card-ulasan p {
+    font-size: 1.3rem;
+    line-height: 1.7;
+    color: var(--light-color);
+}
+
+.card-ulasan .stars {
+    cursor: pointer;
+    font-size: 2em;
+    color: #f5b301;
+}
+
+
+/* section ulasan lapangan end */

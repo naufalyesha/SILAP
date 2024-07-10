@@ -31,11 +31,13 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 600px;
+            margin: 20px;
         }
 
         .form-container {
-            max-width: 600px;
-            width: 500px;
+            width: 100%;
         }
 
         h1 {
@@ -80,6 +82,26 @@
         .login-btn:hover {
             background-color: #007BB5;
         }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+
+            input,
+            select,
+            button {
+                padding: 12px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+        }
     </style>
 </head>
 
@@ -92,46 +114,69 @@
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" value="{{ old('email') }}">
                 @error('email')
-                <small>{{ $message }}</small>
+                    <small>{{ $message }}</small>
                 @enderror
 
                 <label for="nama">Nama</label>
                 <input type="text" id="nama" name="nama" value="{{ old('nama') }}">
                 @error('nama')
-                <small>{{ $message }}</small>
+                    <small>{{ $message }}</small>
                 @enderror
 
                 <label for="alamat">Alamat</label>
                 <input type="text" id="alamat" name="alamat" value="{{ old('alamat') }}">
                 @error('alamat')
-                <small>{{ $message }}</small>
+                    <small>{{ $message }}</small>
                 @enderror
 
                 <label for="phone">Nomor Telepon</label>
                 <input type="text" id="phone" name="phone" value="{{ old('phone') }}">
                 @error('phone')
-                <small>{{ $message }}</small>
+                    <small>{{ $message }}</small>
                 @enderror
 
                 <label for="role">Role</label>
-                <select id="role" name="role">
+                <select id="role" name="role" onchange="toggleGoogleMapLink()">
                     <option value="customer">Customer</option>
                     <option value="vendor">Vendor</option>
                 </select>
                 @error('role')
-                <small>{{ $message }}</small>
+                    <small>{{ $message }}</small>
                 @enderror
+
+                <div id="google-map-link-container" class="hidden">
+                    <label for="google_map_link">Google Map Link</label>
+                    <input type="text" id="google_map_link" name="google_map_link"
+                        value="{{ old('google_map_link') }}">
+                    @error('google_map_link')
+                        <small>{{ $message }}</small>
+                    @enderror
+                </div>
 
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password">
                 @error('password')
-                <small>{{ $message }}</small>
+                    <small>{{ $message }}</small>
                 @enderror
+
                 <button type="submit">Daftar</button>
             </form>
             <button class="login-btn" onclick="location.href='/login'">Login</button>
         </div>
     </div>
+
+    <script>
+        function toggleGoogleMapLink() {
+            var role = document.getElementById('role').value;
+            var googleMapLinkContainer = document.getElementById('google-map-link-container');
+
+            if (role === 'vendor') {
+                googleMapLinkContainer.classList.remove('hidden');
+            } else {
+                googleMapLinkContainer.classList.add('hidden');
+            }
+        }
+    </script>
 </body>
 
 </html>
