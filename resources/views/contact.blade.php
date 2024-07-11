@@ -10,7 +10,7 @@
     }
 </style>
     <div class="container">
-        <h2>Contact Us</h2>
+        <h2>Hubungi Kami</h2>
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
@@ -19,7 +19,7 @@
         <form action="{{ route('contact-process') }}" method="POST">
             @csrf
             <div class="form-group">
-                <label for="name">Name</label>
+                <label for="name">Nama</label>
                 <input type="text" class="form-control" id="name" name="name" required>
             </div>
             <div class="form-group">
@@ -27,10 +27,10 @@
                 <input type="email" class="form-control" id="email" name="email" required>
             </div>
             <div class="form-group">
-                <label for="message">Message</label>
+                <label for="message">Pesan</label>
                 <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Send</button>
+            <button type="submit" class="btn btn-primary">Kirim</button>
         </form>
     </div>
 @endsection

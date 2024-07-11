@@ -75,14 +75,14 @@
 
     <header>
         <div class="logo">
-            <a href="#">SportField</a>
+            <a href="{{ Auth::check() ? route('home') : url('/') }}">SportField</a>
         </div>
 
         <div class="navlist">
-            <li><a href="#home">Beranda</a></li>
-            <li><a href="#fields">Daftar Lapangan</a></li>
-            <li><a href="#about">Tentang Kami</a></li>
-            <li><a href="#faq">Faq</a></li>
+            <li><a href="{{ Auth::check() ? route('home') : url('/') }}#home">Beranda</a></li>
+            <li><a href="{{ Auth::check() ? route('home') : url('/') }}#fields">Daftar Lapangan</a></li>
+            <li><a href="{{ Auth::check() ? route('home') : url('/') }}#about">Tentang Kami</a></li>
+            <li><a href="{{ Auth::check() ? route('home') : url('/') }}#faq">Faq</a></li>
         </div>
 
         <div class="nav-icons">
@@ -197,6 +197,52 @@
             </div>
         </div>
     </div>
+    <script>
+        document.getElementById('editProfileForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            let formData = new FormData(this);
+
+            fetch('{{ route('profile.update') }}', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'X-HTTP-Method-Override': 'PUT'
+                    },
+                    body: formData
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.message) {
+                        var editNamaInput = document.getElementById('editNama');
+                        var editNamaValue = editNamaInput.value;
+                        var editAlamatInput = document.getElementById('editAlamat');
+                        var editAlamatValue = editAlamatInput.value;
+                        var editPhoneInput = document.getElementById('editNomorHandphone');
+                        var editPhoneValue = editPhoneInput.value;
+                        var profileImage = document.querySelector('.modal-body .text-center img');
+
+                        document.querySelector('.profile-info h4').textContent = `${editNamaValue}`;
+                        document.querySelector('.profile-info p:nth-child(2)').textContent =
+                            `${editAlamatValue}`;
+                        document.querySelector('.profile-info p:nth-child(3)').textContent =
+                            `${editPhoneValue}`;
+                        profileImage.src = `{{ asset('storage/${data.user.profile_photo}') }}`;
+
+                        let modal = bootstrap.Modal.getInstance(document.getElementById('profileModal'));
+                        modal.hide();
+                    } else {
+                        console.error(data.errors);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    </script>
 
 
     <section class="footer">

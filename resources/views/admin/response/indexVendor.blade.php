@@ -28,6 +28,7 @@
                                 <th scope="col">Email</th>
                                 <th scope="col">Pesan</th>
                                 <th scope="col">Tanggal</th>
+                                <th scope="col">Pukul</th>
                                 <th scope="col">Aksi</th>
                             </tr>
                         </thead>
@@ -38,9 +39,13 @@
                                     <td>{{ $message->name }}</td>
                                     <td>{{ $message->email }}</td>
                                     <td>{{ $message->message }}</td>
-                                    <td>{{ $message->created_at->format('d-m-Y H:i') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($message->created_at)->translatedFormat('j F Y') }}
+                                    </td>
+                                    <td>{{ \Carbon\Carbon::parse($message->created_at)->translatedFormat('H.i') }}
+                                    </td>
                                     <td>
-                                        <form action="{{ route('admin.response-vendor.delete', $message->id) }}" method="POST"
+                                        <form action="{{ route('admin.response-vendor.delete', $message->id) }}"
+                                            method="POST"
                                             onsubmit="return confirm('Apakah Anda yakin ingin menghapus pesan ini?');">
                                             @csrf
                                             @method('DELETE')

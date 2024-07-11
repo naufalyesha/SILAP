@@ -76,6 +76,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     //Admin CRUD Response Pengaduan User
     Route::get('/admin/response-user', [ContactController::class, 'indexResponseUser'])->name('admin.response-user'); //done
+    Route::delete('/admin/response-user/{message}', [ContactController::class, 'deleteResponseUser'])->name('admin.response-user.delete');
 
     //Admin CRUD Response Pengaduan Vendor
     Route::get('/admin/response-vendor', [ContactController::class, 'indexResponseVendor'])->name('admin.response-vendor'); //done

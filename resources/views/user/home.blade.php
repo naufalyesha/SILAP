@@ -249,9 +249,10 @@
                     <li>Lapangan sepak bola.</li>
                     <li>Lapangan futsal</li>
                     <li>Lapangan bulu tangkis</li>
-                    <li>Lapangan tenis.</li>
+                    <li>Lapangan tenis</li>
                     <li>Lapangan basket</li>
-                    <li>mini soccer</li>
+                    <li>Lapangan voli</li>
+                    <li>Lapangan sepak takraw</li>
                 </ol>
             </div>
         </div>

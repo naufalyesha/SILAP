@@ -17,16 +17,15 @@ class TransactionController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $transactions = Transaction::with(['schedule'])
+        $transactions = Transaction::with(['schedule.lapangan', 'schedule.vendor'])
             ->where('user_id', $user->id)
             ->get();
-
         return view('user.transaction', compact('transactions'));
     }
 
     public function create(Request $request)
     {
-        // Validate the request data
+        // Validasi data request
         $request->validate([
             'schedule_id' => 'required|exists:schedules,id',
             'price' => 'required|numeric',
@@ -41,7 +40,7 @@ class TransactionController extends Controller
         Config::$isSanitized = config('midtrans.is_sanitized');
         Config::$is3ds = config('midtrans.is_3ds');
 
-        // Create the transaction in the database
+        // Buat transaksi di database
         $transaction = Transaction::create([
             'user_id' => $user->id,
             'schedule_id' => $schedule->id,
@@ -55,32 +54,31 @@ class TransactionController extends Controller
                 'gross_amount' => $schedule->price,
             ],
             'customer_details' => [
-                'first_name' => Auth::user()->nama,
-                'email' => Auth::user()->email,
+                'first_name' => $user->nama,
+                'email' => $user->email,
             ],
         ];
 
         try {
             $snapToken = Snap::getSnapToken($params);
 
-            Log::info('Snap Token received: ' . $snapToken); // Logging token received
+            Log::info('Snap Token diterima: ' . $snapToken);
 
             $order = Transaction::findOrFail($transaction->id);
-            // Update the transaction with the Snap token
+            // Update transaksi dengan Snap token
             $order->update([
                 'snap_token' => $snapToken,
             ]);
 
-            Log::info('Transaction updated with Snap Token: ' . $snapToken); // Logging after update
+            Log::info('Transaksi diperbarui dengan Snap Token: ' . $snapToken);
 
-            return redirect()->route('transactions.index')->with('success', 'Transaction created successfully.');
+            return redirect()->route('transactions.index')->with('success', 'Transaksi Berhasil Dibuat!');
         } catch (\Exception $e) {
-            // Catch and log the error
-            Log::error('Error creating transaction: ' . $e->getMessage());
-            return redirect()->route('transactions.index')->with('error', 'Failed to create transaction. Please try again.');
+            // Tangani dan log kesalahan
+            Log::error('Error membuat transaksi: ' . $e->getMessage());
+            return redirect()->route('transactions.index')->with('error', 'Gagal membuat Transaksi. Coba Lagi.');
         }
     }
-
 
     public function webhook(Request $request)
     {
@@ -97,7 +95,7 @@ class TransactionController extends Controller
         $transaction = Transaction::where('id', $response->transaction_id)->firstOrFail();
 
         if ($transaction->status === 'settlement' || $transaction->status === 'capture') {
-            return response()->json('Payment Has Already Processed!');
+            return response()->json('Pembayaran Telah Diproses!');
         }
 
         if ($response->transaction_status === 'capture') {
@@ -113,8 +111,26 @@ class TransactionController extends Controller
         } else if ($response->transaction_status === 'cancel') {
             $transaction->status = 'cancel';
         }
-        $transaction->save();
 
-        return response()->json('Success!');
+        if ($transaction->status === 'settlement' || $transaction->status === 'capture') {
+            return response()->json('Pembayaran Telah Diproses!');
+        }
+
+        // if ($response->transaction_status === 'capture') {
+        //     $transaction->status = 'capture';
+        // } else if ($response->transaction_status === 'settlement') {
+        //     $transaction->status = 'settlement';
+        // } else if ($response->transaction_status === 'pending') {
+        //     $transaction->status = 'pending';
+        // } else if ($response->transaction_status === 'deny') {
+        //     $transaction->status = 'deny';
+        // } else if ($response->transaction_status === 'expire') {
+        //     $transaction->status = 'expire';
+        // } else if ($response->transaction_status === 'cancel') {
+        //     $transaction->status = 'cancel';
+        // }
+        // $transaction->save();
+
+        return response()->json('Sukses!');
     }
 }

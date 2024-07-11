@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('transaction', function (Blueprint $table) {
+        Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('schedule_id');
             $table->decimal('price', 10, 2);
-            $table->string('status')->default('pending');
+            $table->string('status')->default('menunggu');
             $table->string('snap_token');
             $table->timestamps();
 
