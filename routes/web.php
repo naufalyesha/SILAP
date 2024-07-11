@@ -68,6 +68,10 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
+Route::middleware(['auth', 'role:customer'])->group(function () {
+    Route::post('/rate', [UserController::class, 'submitRating'])->name('rate');
+});
+
 Route::middleware(['auth', 'role:admin'])->group(function () {
     //Admin CRUD Manajemen Vendor
     Route::get('/admin/vendor-management', [AdminController::class, 'indexVendorManagement'])->name('admin.vendor-management'); //done

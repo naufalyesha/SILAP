@@ -42,65 +42,23 @@ class UserController extends Controller
         return view('user.detail', compact('lapangan'));
     }
 
-    // Menyewa Lapangan (Create Pemesanan)
-    public function sewaLapangan(Request $request)
+    // Memberikan Rating dan Ulasan (Create)
+    public function submitRating(Request $request)
     {
-        $pemesanan = new Pemesanan();
-        $pemesanan->user_id = $request->user()->id;
-        $pemesanan->lapangan_id = $request->lapangan_id;
-        $pemesanan->tanggal = $request->tanggal;
-        $pemesanan->waktu_mulai = $request->waktu_mulai;
-        $pemesanan->waktu_selesai = $request->waktu_selesai;
-        $pemesanan->status_pembayaran = 'belum_dibayar';
-        $pemesanan->save();
+        $request->validate([
+            'field_id' => 'required|exists:fields,id',
+            'rating' => 'required|integer|min:1|max:5',
+            'comment' => 'nullable|string|max:255',
+        ]);
 
-        return response()->json(['message' => 'Pemesanan berhasil dilakukan'], 201);
-    }
+        Rating::create([
+            'user_id' => Auth::id(),
+            'field_id' => $request->field_id,
+            'rating' => $request->rating,
+            'comment' => $request->comment,
+        ]);
 
-    // Memilih Lapangan (Read)
-    public function getLapangan()
-    {
-        $lapangan = Lapangan::all();
-        return response()->json($lapangan, 200);
-    }
-
-    // Menentukan Tanggal (Read)
-    public function getAvailableDates($lapangan_id)
-    {
-        $dates = Pemesanan::where('lapangan_id', $lapangan_id)->pluck('tanggal');
-        return response()->json($dates, 200);
-    }
-
-    // Pembayaran Online (Read)
-    public function getPembayaran($pemesanan_id)
-    {
-        $pemesanan = Pemesanan::find($pemesanan_id);
-        if (!$pemesanan) {
-            return response()->json(['message' => 'Pemesanan tidak ditemukan'], 404);
-        }
-        return response()->json(['status_pembayaran' => $pemesanan->status_pembayaran], 200);
-    }
-
-    // Pencarian dan Filter Lapangan (Read)
-    public function searchLapangan(Request $request)
-    {
-        $query = Lapangan::query();
-
-        if ($request->has('lokasi')) {
-            $query->where('lokasi', 'LIKE', '%' . $request->lokasi . '%');
-        }
-        if ($request->has('harga')) {
-            $query->where('harga', '<=', $request->harga);
-        }
-        if ($request->has('fasilitas')) {
-            $query->where('fasilitas', 'LIKE', '%' . $request->fasilitas . '%');
-        }
-        if ($request->has('rating')) {
-            $query->where('rating', '>=', $request->rating);
-        }
-
-        $lapangan = $query->get();
-        return response()->json($lapangan, 200);
+        return redirect()->back()->with('success', 'Thank you for your rating!');
     }
 
     // Pembatalan Pemesanan (Delete)
@@ -118,30 +76,5 @@ class UserController extends Controller
 
         $pemesanan->delete();
         return response()->json(['message' => 'Pemesanan berhasil dibatalkan'], 200);
-    }
-
-    // Memberikan Rating dan Ulasan (Create)
-    public function submitRating(Request $request)
-    {
-        $rating = new Rating();
-        $rating->user_id = $request->user()->id;
-        $rating->lapangan_id = $request->lapangan_id;
-        $rating->rating = $request->rating;
-        $rating->ulasan = $request->ulasan;
-        $rating->save();
-
-        return response()->json(['message' => 'Rating dan ulasan berhasil dikirim'], 201);
-    }
-
-    // Membuat Pengaduan (Create)
-    public function submitPengaduan(Request $request)
-    {
-        $pengaduan = new Pengaduan();
-        $pengaduan->user_id = $request->user()->id;
-        $pengaduan->lapangan_id = $request->lapangan_id;
-        $pengaduan->deskripsi = $request->deskripsi;
-        $pengaduan->save();
-
-        return response()->json(['message' => 'Pengaduan berhasil dikirim'], 201);
     }
 }
