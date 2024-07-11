@@ -1,5 +1,9 @@
 @extends('layout/admin/app')
 
+@section('title')
+    <title>Dasbor Admin</title>
+@endsection
+
 @section('content')
     <main class="content px-3 py-2">
         <div class="container-fluid">

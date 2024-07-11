@@ -1,5 +1,9 @@
 @extends('layout.vendor.app')
 
+@section('title')
+    <title>Jadwal dan Harga</title>
+@endsection
+
 @section('content')
     <div class="container mt-2">
         <div class="mb-3">
@@ -29,17 +33,18 @@
                                     <span style="color: red;">Sudah Dipesan</span>
                                 @endif
                             </td>
-                            <td>{{ $schedule->date }}</td>
-                            <td>{{ $schedule->start_time }}</td>
-                            <td>{{ $schedule->end_time }}</td>
-                            <td>{{ $schedule->price }}</td>
+                            <td>{{ \Carbon\Carbon::parse($schedule->date)->translatedFormat('j F Y') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($schedule->start_time)->format('H.i') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($schedule->end_time)->format('H.i') }}</td>
+                            <td>{{ 'Rp ' . number_format($schedule->price, 0, ',', '.') }}</td>
                             <td>
-                                <a href="{{ route('schedules.edit', $schedule->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                <a href="{{ route('schedules.edit', $schedule->id) }}" class="btn btn-sm btn-warning">Edit</a>
                                 <form action="{{ route('schedules.destroy', $schedule->id) }}" method="POST"
                                     style="display: inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                    <button type="submit" class="btn btn-sm btn-danger"
+                                        onclick="return confirm('Apakah Anda yakin ingin menghapus lapangan ini?')">Hapus</button>
                                 </form>
                             </td>
                         </tr>

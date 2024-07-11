@@ -56,13 +56,19 @@ class ContactController extends Controller
         ]);
         // dd($request);
 
-        return back()->with('success', 'Your message has been sent successfully.');
+        return back()->with('success', 'Pesan Anda telah terkirim!.');
     }
 
     public function deleteResponseVendor(Message $message)
     {
         $message->delete();
         return redirect()->route('admin.response-vendor')->with('success', 'Pesan berhasil dihapus.');
+    }
+
+    public function deleteResponseUser(Message $message)
+    {
+        $message->delete();
+        return redirect()->route('admin.response-user')->with('success', 'Pesan berhasil dihapus.');
     }
 }
 

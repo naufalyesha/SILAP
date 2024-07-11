@@ -19,14 +19,17 @@ return new class extends Migration
             $table->enum('role', ['customer', 'vendor', 'admin'])->default('customer');
             $table->string('nama');
             $table->string('alamat');
+            $table->string('kota')->nullable();
             $table->string('phone');
             $table->string('google_map_link')->nullable();
             $table->boolean('banned')->default(false);
             $table->text('ban_reason')->nullable();
+            $table->string('profile_photo')->default('image/profile.jpg'); 
             $table->rememberToken();
             $table->timestamps();
         });
     }
+    
 
 
     /**

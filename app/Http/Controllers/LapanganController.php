@@ -23,13 +23,15 @@ class LapanganController extends Controller
             ->latest()
             ->paginate(15);
 
+        // Ambil data lokasi unik dari lapangans
+        $locations = Lapangan::select('location')->distinct()->get();
+
         // Ambil data admin
         $admin = User::where('role', 'admin')->first();
 
         // Kirim data ke view
-        return view('welcome', compact('lapangans', 'admin'));
+        return view('welcome', compact('lapangans', 'admin', 'locations'));
     }
-
 
     public function search(Request $request)
     {

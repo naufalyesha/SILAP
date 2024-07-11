@@ -99,7 +99,8 @@
         <div class="logo">
             <a href="/">SportField</a>
         </div>
-        <h2>Login</h2>
+    </br>
+        {{-- <h2>Masuk</h2> --}}
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
@@ -120,11 +121,11 @@
             @error('password')
                 <small>{{ $message }}</small>
             @enderror
-            <button type="submit">Login</button>
+            <button type="submit">Masuk</button>
         </form>
-        <button class="register-btn" onclick="location.href='/register'">Register</button>
-        <a href="{{ route('forgot-password') }}">Forgot Password?</a>
-        <a href="/">Continue as Guest!</a>
+        <button class="register-btn" onclick="location.href='/register'">Daftar</button>
+        <a href="{{ route('forgot-password') }}">Lupa Password?</a>
+        <a href="/">Lanjutkan sebagai Tamu!</a>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

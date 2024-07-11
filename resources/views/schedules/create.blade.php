@@ -1,5 +1,9 @@
 @extends('layout/vendor/app')
 
+@section('title')
+    <title>Jadwal dan Harga</title>
+@endsection
+
 @section('content')
     <div class="container mt-5">
         <div class="mb-4">
@@ -11,7 +15,7 @@
                     <label for="lapangan">Lapangan</label>
                     <select class="form-control" id="lapangan" name="lapangan_id">
                         <option value="">Pilih Lapangan</option>
-                        @foreach($lapangans as $lapangan)
+                        @foreach ($lapangans as $lapangan)
                             <option value="{{ $lapangan->id }}">{{ $lapangan->name }}</option>
                         @endforeach
                     </select>
@@ -33,14 +37,14 @@
                 </div>
                 <!-- Harga -->
                 <div class="mb-3">
-                    <label for="price" class="form-label">Harga</label>
-                    <input type="number" class="form-control" id="price" name="price">
+                    <label for="price" class="form-label">Harga (Rp)</label>
+                    <input type="number" class="form-control" id="price" name="price" placeholder="Contoh : 70000">
                 </div>
 
                 <!-- Tombol Aksi -->
                 <button type="submit" class="btn btn-primary">Submit</button>
                 <a href="{{ route('schedules.index') }}" class="btn btn-success">Kembali</a>
-            </form>            
+            </form>
         </div>
     </div>
 @endsection
@@ -48,12 +52,20 @@
 @section('scripts')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        @if($errors->any())
+        @if ($errors->any())
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: '{{ $errors->first() }}',
             });
         @endif
+
+        // document.getElementById('price').addEventListener('input', function(e) {
+        //     var value = e.target.value.replace(/\D/g, '');
+        //     e.target.value = new Intl.NumberFormat('id-ID', {
+        //         style: 'currency',
+        //         currency: 'IDR'
+        //     }).format(value).replace(/[Rp\s,]/g, '');
+        // });
     </script>
 @endsection

@@ -83,12 +83,15 @@ class LoginController extends Controller
     {
         // Validasi input
         $validatedData = $request->validate([
-            'email'     => 'required|email|max:255|unique:users,email',
-            'nama'      => 'required|string|max:255',
-            'alamat'    => 'required|string|max:255',
-            'phone'     => 'required|string|max:15',
-            'password'  => 'required|string|min:6',
-            'role'      => 'required|in:customer,vendor',
+            'email'             => 'required|email|max:255|unique:users,email',
+            'nama'              => 'required|string|max:255',
+            'alamat'            => 'required|string|max:255',
+            'phone'             => 'required|string|max:15',
+            'password'          => 'required|string|min:6',
+            'role'              => 'required|in:customer,vendor',
+            'google_map_link'   => 'required|string|max:255',
+            'kota'              => 'required|string|max:255',
+            
         ]);
 
         try {
@@ -103,6 +106,9 @@ class LoginController extends Controller
                 'phone' => $validatedData['phone'],
                 'password' => $hashedPassword,
                 'role' => $validatedData['role'],
+                'google_map_link' => $validatedData['google_map_link'],
+                'kota' => $validatedData['kota'],
+                
             ]);
 
             return redirect()->route('login')->with('success', 'User registered successfully.');

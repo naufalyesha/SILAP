@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-use App\Models\Lapangan; 
+use App\Models\Lapangan;
+use App\Models\Transaction;
 use App\Models\Pemesanan; //Belom
 use App\Models\Rating; //Belom
 use App\Models\Pengaduan; //Belom
@@ -24,24 +26,20 @@ class UserController extends Controller
             ->latest()
             ->paginate(15);
 
+        // Ambil data lokasi unik dari lapangans
+        $locations = Lapangan::select('location')->distinct()->get();
+
         // Ambil data admin
         $admin = User::where('role', 'admin')->first();
 
         // Kirim data ke view
-        return view('welcome', compact('lapangans', 'admin'));
+        return view('welcome', compact('lapangans', 'admin', 'locations'));
     }
 
     public function detailLapangan($id)
     {
-        // Ambil data dari database
-        $lapangan = Lapangan::with('vendor', 'schedules')->findOrFail($id);
-        $days = [
-            'Min<br>30 Jun', 'Sen<br>1 Jul', 'Sel<br>2 Jul',
-            'Rab<br>3 Jul', 'Kam<br>4 Jul', 'Jum<br>5 Jul', 'Sab<br>6 Jul'
-        ];
-
-        // Kirim data ke view
-        return view('user.detail', compact('lapangan', 'days'));
+        $lapangan = Lapangan::with('vendor', 'schedules.vendor')->findOrFail($id);
+        return view('user.detail', compact('lapangan'));
     }
 
     // Menyewa Lapangan (Create Pemesanan)

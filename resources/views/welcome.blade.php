@@ -7,7 +7,7 @@
         <!-- <div class="home-container"> -->
         <div class="home-text">
             <h1>Penyewaan lapangan secara online</h1>
-            <p>Rent our sports fields now and enjoy a fun sports experience!</p>
+            <p>Sewa lapangan olahraga sekarang dan nikmati pengalaman olahraga yang menyenangkan!</p>
             <a href="#fields" class="btn">Cari Lapangan</a>
         </div>
 
@@ -31,25 +31,41 @@
             </div>
             <div class="search-wrapper">
                 <i class="fa-solid fa-location-dot"></i>
-                <input type="text" placeholder="Lokasi" class="search-input" id="search-location">
+                <select class="search-select" id="search-location">
+                    <option value="">Pilih Lokasi</option>
+                    @foreach ($locations as $location)
+                        <option value="{{ $location->location }}">{{ $location->location }}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="search-wrapper">
                 <i class="fa-solid fa-futbol"></i>
                 <select class="search-select" id="search-sport-select">
-                    <option value="">All Sports</option>
+                    <option value="">Semua</option>
+                    <option value="sepak bola">Sepak Bola</option>
                     <option value="futsal">Futsal</option>
                     <option value="basket">Basket</option>
+                    <option value="bulu tangkis">Bulu Tangkis</option>
                     <option value="tenis">Tenis</option>
-                    <option value="badminton">Badminton</option>
+                    <option value="basket">Voli</option>
+                    <option value="sepak takraw">Sepak Takraw</option>
                 </select>
             </div>
             <button class="search-button" onclick="searchVenues()">Cari venue</button>
         </div>
+
         <br>
         <div class="venue-grid" id="venue-grid">
             @foreach ($lapangans as $lapangan)
                 <div class="venue-card">
-                    <img src="{{ asset('images/' . $lapangan->photo) }}" alt="{{ $lapangan->name }}">
+                    @php
+                        $photos = json_decode($lapangan->photo, true);
+                    @endphp
+                    @if (!empty($photos))
+                        <img src="{{ asset('images/' . $photos[0]) }}" alt="{{ $lapangan->name }}">
+                    @else
+                        <img src="{{ asset('images/default.jpg') }}" alt="{{ $lapangan->name }}">
+                    @endif
                     <div class="venue-info">
                         <p class="venue-type">Venue</p>
                         <h3>{{ $lapangan->name }}</h3>
@@ -69,6 +85,7 @@
 
             {{ $lapangans->links() }}
         </div>
+
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
             function searchVenues() {
@@ -90,7 +107,7 @@
                     })
                     .then(response => {
                         if (!response.ok) {
-                            throw new Error('No venues found or the vendor is banned');
+                            throw new Error('Tidak ada tempat yang ditemukan atau vendornya dilarang');
                         }
                         return response.json();
                     })
@@ -98,9 +115,13 @@
                         const venueGrid = document.getElementById('venue-grid');
                         venueGrid.innerHTML = '';
                         data.forEach(lapangan => {
+                            const photos = JSON.parse(lapangan.photo);
+                            const photoUrl = photos.length ? '{{ asset('images/') }}/' + photos[0] :
+                                '{{ asset('images/default.jpg') }}';
+
                             venueGrid.innerHTML += `
                             <div class="venue-card">
-                                <img src="{{ asset('images/') }}/${lapangan.photo}" alt="${lapangan.name}">
+                                <img src="${photoUrl}" alt="${lapangan.name}">
                                 <div class="venue-info">
                                     <p class="venue-type">Venue</p>
                                     <h3>${lapangan.name}</h3>
@@ -124,7 +145,6 @@
                     });
             }
         </script>
-
     </section>
 
 
@@ -184,9 +204,9 @@
                             <p>Jika Anda memiliki pertanyaan atau membutuhkan informasi lebih lanjut, jangan ragu untuk
                                 menghubungi kami. Kami dengan senang hati akan membantu Anda.</p>
                             @if ($admin)
-                                <p>Email: {{ $admin->email }}</p>
-                                <p>Telepon: {{ $admin->phone }}</p>
-                                <p>Alamat: {{ $admin->alamat }}</p>
+                                <p><strong>Email : </strong> {{ $admin->email }}</p>
+                                <p><strong>Telepon : </strong> {{ $admin->phone }}</p>
+                                <p><strong>Alamat : </strong> {{ $admin->alamat }}</p>
                             @else
                                 <p>Informasi admin tidak tersedia.</p>
                             @endif
@@ -229,9 +249,10 @@
                     <li>Lapangan sepak bola.</li>
                     <li>Lapangan futsal</li>
                     <li>Lapangan bulu tangkis</li>
-                    <li>Lapangan tenis.</li>
+                    <li>Lapangan tenis</li>
                     <li>Lapangan basket</li>
-                    <li>mini soccer</li>
+                    <li>Lapangan voli</li>
+                    <li>Lapangan sepak takraw</li>
                 </ol>
             </div>
         </div>
