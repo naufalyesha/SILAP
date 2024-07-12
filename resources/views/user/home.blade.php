@@ -12,7 +12,7 @@
         </div>
 
         <div class="home-img">
-            <img src="{{ asset('image/1.jpg') }}" alt="home">
+            <img src="{{ asset('images/1.png') }}" alt="home">
         </div>
     </section>
 
