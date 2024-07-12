@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\LapanganController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\MidtransController;
+use App\Http\Controllers\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,8 +37,11 @@ Route::get('/', [LapanganController::class, 'readLapangan'])->name('readLapangan
 Route::post('/search-venues', [LapanganController::class, 'search'])->name('search.venues'); //done
 
 //contact
-Route::get('/contact', [ContactController::class, 'index'])->name('contact'); //belom
-Route::post('/contact-process', [ContactController::class, 'contact_process'])->name('contact-process'); //belom
+Route::get('/contact', [ContactController::class, 'index'])->name('contact'); //done
+Route::post('/contact-process', [ContactController::class, 'contact_process'])->name('contact-process'); //done
+
+//detail Vendor
+Route::get('/detail-vendor/{vendor_id}', [UserController::class, 'detailVendor'])->name('detailVendor'); //belom
 
 //detail Lapangan
 Route::get('/detail-lapangan/{id}', [UserController::class, 'detailLapangan'])->name('detailLapangan'); //done
@@ -62,10 +66,18 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home', [UserController::class, 'customer'])->middleware('userAccess:customer')->name('home'); //done
     //transaction
     Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index'); //done
-    Route::post('/transactions/create', [TransactionController::class, 'create'])->name('transactions.store'); //belom
-    Route::post('/midtrans/notification', [MidtransController::class, 'notificationHandler'])->name('midtrans.notification'); //belom
-    Route::post('/transactions/webhook', [TransactionController::class, 'webhook'])->name('transactions.webhook'); //belom
+    Route::post('/transactions/create', [TransactionController::class, 'create'])->name('transactions.store'); //done
+    Route::post('/midtrans/notification', [MidtransController::class, 'notificationHandler'])->name('midtrans.notification'); //done
+    Route::post('/transactions/webhook', [TransactionController::class, 'webhook'])->name('transactions.webhook'); //done
+    Route::post('/transactions/cancel', [TransactionController::class, 'cancel'])->name('transactions.cancel'); //done
+    Route::post('/transactions/cancel/success', [TransactionController::class, 'cancelSuccess'])->name('transactions.cancel.success');//done
+    Route::delete('/transactions/{transaction}', [TransactionController::class, 'destroy'])->name('transactions.destroy'); //done
+    //review
+    Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+});
 
+Route::middleware(['auth', 'role:customer'])->group(function () {
+    Route::post('/rate', [UserController::class, 'submitRating'])->name('rate');
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {

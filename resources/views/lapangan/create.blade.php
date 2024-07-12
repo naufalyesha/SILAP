@@ -14,14 +14,20 @@
                     <label for="name">Nama Lapangan</label>
                     <input type="text" class="form-control" id="name" name="name">
                 </div>
-                <div class="form-group">
+                <div class="form-group d-none">
                     <label for="location">Lokasi</label>
-                    <input type="text" class="form-control" id="location" name="location" value="{{ auth()->user()->kota }}">
+                    <input type="text" class="form-control" id="location" name="location"
+                        value="{{ auth()->user()->kota }}">
                 </div>
-                <div class="form-group">
+                <input type="hidden" name="location" value="{{ auth()->user()->kota }}">
+
+                <div class="form-group d-none">
                     <label for="map">Peta</label>
-                    <input type="url" class="form-control" id="map" name="map" value="{{ auth()->user()->google_map_link }}">
+                    <input type="url" class="form-control" id="map" name="map"
+                        value="{{ auth()->user()->google_map_link }}">
                 </div>
+                <input type="hidden" name="map" value="{{ auth()->user()->google_map_link }}">
+
                 <div class="form-group">
                     <label for="photo">Foto Lapangan</label>
                     <input type="file" accept="image/*" class="form-control-file" id="photo" name="photo[]" multiple

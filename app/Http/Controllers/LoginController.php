@@ -89,8 +89,8 @@ class LoginController extends Controller
             'phone'             => 'required|string|max:15',
             'password'          => 'required|string|min:6',
             'role'              => 'required|in:customer,vendor',
-            'google_map_link'   => 'required|string|max:255',
-            'kota'              => 'required|string|max:255',
+            'google_map_link'   => 'nullable|string|max:255',
+            'kota'              => 'nullable|string|max:255',
             
         ]);
 
@@ -106,8 +106,8 @@ class LoginController extends Controller
                 'phone' => $validatedData['phone'],
                 'password' => $hashedPassword,
                 'role' => $validatedData['role'],
-                'google_map_link' => $validatedData['google_map_link'],
-                'kota' => $validatedData['kota'],
+                'google_map_link' => $validatedData['google_map_link'] ?? null,
+                'kota' => $validatedData['kota'] ?? null,
                 
             ]);
 
