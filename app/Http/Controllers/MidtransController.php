@@ -12,11 +12,13 @@ class MidtransController extends Controller
 {
     public function notificationHandler(Request $request)
     {
+        // Uncomment these lines if you need to configure Midtrans
         // Config::$serverKey = config('midtrans.server_key');
         // Config::$isProduction = config('midtrans.is_production');
         // Config::$isSanitized = config('midtrans.is_sanitized');
         // Config::$is3ds = config('midtrans.is_3ds');
 
+        // Uncomment and use this line if you need to process the notification from Midtrans
         // $notification = new Notification();
 
         // $transactionStatus = $notification->transaction_status;
@@ -30,42 +32,26 @@ class MidtransController extends Controller
         //     return response()->json(['error' => 'Transaction not found'], 404);
         // }
 
-        // // Update the transaction status based on the status from Midtrans
-        // switch ($transactionStatus) {
-        //     case 'capture':
-        //         if ($paymentType == 'credit_card') {
-        //             if ($notification->fraud_status == 'challenge') {
-        //                 $transaction->status = 'challenge';
-        //             } else {
-        //                 $transaction->status = 'success';
-        //             }
-        //         }
-        //         break;
-        //     case 'settlement':
-        //         $transaction->status = 'success';
-        //         break;
-        //     case 'pending':
-        //         $transaction->status = 'pending';
-        //         break;
-        //     case 'deny':
-        //         $transaction->status = 'failed';
-        //         break;
-        //     case 'expire':
-        //         $transaction->status = 'expired';
-        //         break;
-        //     case 'cancel':
-        //         $transaction->status = 'canceled';
-        //         break;
-        // }
+        // Update the transaction status based on the status from the request
         $transaction->status = $request->status;
-        if ( $request->status == 'success') {
-            $schedule = Schedule::where('id', $transaction->schedule_id)->first();
-            $schedule->booked = 1;
+        $schedule = Schedule::where('id', $transaction->schedule_id)->first();
+
+        // if (!$schedule) {
+        //     return response()->json(['error' => 'Schedule not found'], 404);
+        // }
+
+        // Update schedule status based on transaction status
+        if ($request->status == 'success') {
+            $schedule->status = 1; // Set status to 'booked'
+        } 
+        // elseif ($request->status == 'failed') {
+        //     $schedule->status = 0; // Set status to 'available'
+        //     $transaction->status = 'gagal'; // Set transaction status to 'failed'
+        // }
+
         $schedule->save();
-        }
-        // Save the updated transaction status
         $transaction->save();
 
-        return response()->json(['message' => $schedule->booked]);
+        return response()->json(['message' => 'Status updated successfully', 'schedule_status' => $schedule->status, 'transaction_status' => $transaction->status]);
     }
 }

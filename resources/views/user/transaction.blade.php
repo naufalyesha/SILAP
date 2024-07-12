@@ -12,7 +12,7 @@
 
 <body>
     <div class="container mt-4">
-        <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex justify-content-between align-items-center mb=4">
             <h1>Pesanan Saya</h1>
             <a href="{{ route('home') }}" class="btn btn-primary">Kembali</a>
         </div>
@@ -44,12 +44,39 @@
                             <td>{{ \Carbon\Carbon::parse($transaction->created_at)->translatedFormat('j F Y') }}</td>
                             <td id="status-{{ $transaction->id }}">{{ $transaction->status }}</td>
                             <td>
-                                @if ($transaction->schedule->booked == 0)
+                                @if ($transaction->schedule->status == 2)
                                     <form id="booking-form-{{ $transaction->id }}" class="d-inline">
                                         @csrf
                                         <button type="submit" class="btn btn-sm btn-primary">Pesan Sekarang</button>
                                     </form>
                                 @endif
+                                @if ($transaction->status == 'menunggu')
+                                    <form id="cancel-form-{{ $transaction->id }}"
+                                        action="{{ route('transactions.cancel') }}" method="POST"
+                                        class="d-inline cancel-form">
+                                        @csrf
+                                        <input type="hidden" name="transaction_id" value="{{ $transaction->id }}">
+                                        <button type="submit" class="btn btn-sm btn-warning">Batalkan Pesanan</button>
+                                    </form>
+                                @endif
+                                @if ($transaction->status == 'success')
+                                    <form id="cancel-success-form-{{ $transaction->id }}"
+                                        action="{{ route('transactions.cancel.success') }}" method="POST"
+                                        class="d-inline cancel-success-form">
+                                        @csrf
+                                        <input type="hidden" name="transaction_id" value="{{ $transaction->id }}">
+                                        <button type="submit" class="btn btn-sm btn-warning">Batalkan Pesanan</button>
+                                    </form>
+                                @endif
+                                {{-- Gaperlu Dihapus --}}
+                                {{-- @if ($transaction->status == 'success' || $transaction->status == 'dibatalkan')
+                                    <form action="{{ route('transactions.destroy', $transaction->id) }}" method="POST"
+                                        class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
+                                    </form>
+                                @endif --}}
                             </td>
                         </tr>
                     @endforeach
@@ -105,6 +132,54 @@
                         }
                     });
                 }
+
+                $('.cancel-form').on('submit', function(event) {
+                    event.preventDefault();
+                    if (confirm('Apakah Anda yakin ingin membatalkan pesanan ini?')) {
+                        var form = $(this);
+                        $.ajax({
+                            url: form.attr('action'),
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            data: form.serialize(),
+                            success: function(response) {
+                                alert('Pesanan berhasil dibatalkan.');
+                                // Refresh halaman setelah pembatalan berhasil
+                                window.location.reload();
+                            },
+                            error: function(xhr) {
+                                alert('Terjadi kesalahan saat membatalkan pesanan.');
+                                console.log(xhr.responseJSON);
+                            }
+                        });
+                    }
+                });
+
+                $('.cancel-success-form').on('submit', function(event) {
+                    event.preventDefault();
+                    if (confirm('Apakah Anda yakin ingin membatalkan pesanan ini?')) {
+                        var form = $(this);
+                        $.ajax({
+                            url: form.attr('action'),
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            data: form.serialize(),
+                            success: function(response) {
+                                alert('Pesanan berhasil dibatalkan.');
+                                // Refresh halaman setelah pembatalan berhasil
+                                window.location.reload();
+                            },
+                            error: function(xhr) {
+                                alert('Terjadi kesalahan saat membatalkan pesanan.');
+                                console.log(xhr.responseJSON);
+                            }
+                        });
+                    }
+                });
             @endforeach
         });
     </script>

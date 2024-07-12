@@ -12,164 +12,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.css">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 <body>
     <div class="container">
-
-        <div class="container">
-            <div class="row">
-                <div class="col-md-10">
-
-                    {{-- detail vendor start --}}
-
-                    <div class="container mt-5">
-                        <div class="card">
-                            <div class="card-body">
-                                <h2 class="card-title">NAMA VENDOR</h2>
-                                <p class="card-text"><strong>Alamat: </strong> {{ $lapangan->location }}</p>
-                                <p class="card-text"><strong>Kota: </strong></p>
-                                <p class="card-text"><strong>Nomor Telepon: </strong></p>
-                                <p class="card-text"><strong>Link Google Map: </strong></p>
-                                <div class="list-fields">
-                                    <h4>Daftar Lapangan</h4>
-                                    <!-- Additional content for Daftar Lapangan can be added here -->
-                                    <div class="row">
-
-                                        <div class="venue-grid" id="venue-grid">
-                                            {{-- @foreach ($lapangans as $lapangan) --}}
-                                            <div class="venue-card">
-                                                @php
-                                                    $photos = json_decode($lapangan->photo, true);
-                                                @endphp
-                                                @if (!empty($photos))
-                                                    <img src="{{ asset('images/' . $photos[0]) }}"
-                                                        alt="{{ $lapangan->name }}">
-                                                @else
-                                                    <img src="{{ asset('images/default.jpg') }}"
-                                                        alt="{{ $lapangan->name }}">
-                                                @endif
-                                                <div class="venue-info">
-                                                    <p class="venue-type">Venue</p>
-                                                    <h3>{{ $lapangan->name }}</h3>
-                                                    <p class="venue-rating">⭐ 4.71 • {{ $lapangan->location }}
-                                                    </p>
-                                                    <p class="venue-sports">{{ $lapangan->type }}</p>
-                                                    <p class="venue-price">
-                                                        @if ($lapangan->schedules->isNotEmpty())
-                                                            Mulai
-                                                            Rp{{ number_format($lapangan->schedules->first()->price, 0, ',', '.') }}
-                                                            / sesi
-                                                        @else
-                                                            Harga tidak tersedia
-                                                        @endif
-                                                    </p>
-                                                    <a href="{{ route('detailLapangan', $lapangan->id) }}"
-                                                        class="btn btn-primary">Detail</a>
-                                                </div>
-                                            </div>
-                                            <div class="venue-card">
-                                                @php
-                                                    $photos = json_decode($lapangan->photo, true);
-                                                @endphp
-                                                @if (!empty($photos))
-                                                    <img src="{{ asset('images/' . $photos[0]) }}"
-                                                        alt="{{ $lapangan->name }}">
-                                                @else
-                                                    <img src="{{ asset('images/default.jpg') }}"
-                                                        alt="{{ $lapangan->name }}">
-                                                @endif
-                                                <div class="venue-info">
-                                                    <p class="venue-type">Venue</p>
-                                                    <h3>{{ $lapangan->name }}</h3>
-                                                    <p class="venue-rating">⭐ 4.71 • {{ $lapangan->location }}
-                                                    </p>
-                                                    <p class="venue-sports">{{ $lapangan->type }}</p>
-                                                    <p class="venue-price">
-                                                        @if ($lapangan->schedules->isNotEmpty())
-                                                            Mulai
-                                                            Rp{{ number_format($lapangan->schedules->first()->price, 0, ',', '.') }}
-                                                            / sesi
-                                                        @else
-                                                            Harga tidak tersedia
-                                                        @endif
-                                                    </p>
-                                                    <a href="{{ route('detailLapangan', $lapangan->id) }}"
-                                                        class="btn btn-primary">Detail</a>
-                                                </div>
-                                            </div>
-                                            <div class="venue-card">
-                                                @php
-                                                    $photos = json_decode($lapangan->photo, true);
-                                                @endphp
-                                                @if (!empty($photos))
-                                                    <img src="{{ asset('images/' . $photos[0]) }}"
-                                                        alt="{{ $lapangan->name }}">
-                                                @else
-                                                    <img src="{{ asset('images/default.jpg') }}"
-                                                        alt="{{ $lapangan->name }}">
-                                                @endif
-                                                <div class="venue-info">
-                                                    <p class="venue-type">Venue</p>
-                                                    <h3>{{ $lapangan->name }}</h3>
-                                                    <p class="venue-rating">⭐ 4.71 • {{ $lapangan->location }}
-                                                    </p>
-                                                    <p class="venue-sports">{{ $lapangan->type }}</p>
-                                                    <p class="venue-price">
-                                                        @if ($lapangan->schedules->isNotEmpty())
-                                                            Mulai
-                                                            Rp{{ number_format($lapangan->schedules->first()->price, 0, ',', '.') }}
-                                                            / sesi
-                                                        @else
-                                                            Harga tidak tersedia
-                                                        @endif
-                                                    </p>
-                                                    <a href="{{ route('detailLapangan', $lapangan->id) }}"
-                                                        class="btn btn-primary">Detail</a>
-                                                </div>
-                                            </div>
-                                            <div class="venue-card">
-                                                @php
-                                                    $photos = json_decode($lapangan->photo, true);
-                                                @endphp
-                                                @if (!empty($photos))
-                                                    <img src="{{ asset('images/' . $photos[0]) }}"
-                                                        alt="{{ $lapangan->name }}">
-                                                @else
-                                                    <img src="{{ asset('images/default.jpg') }}"
-                                                        alt="{{ $lapangan->name }}">
-                                                @endif
-                                                <div class="venue-info">
-                                                    <p class="venue-type">Venue</p>
-                                                    <h3>{{ $lapangan->name }}</h3>
-                                                    <p class="venue-rating">⭐ 4.71 • {{ $lapangan->location }}
-                                                    </p>
-                                                    <p class="venue-sports">{{ $lapangan->type }}</p>
-                                                    <p class="venue-price">
-                                                        @if ($lapangan->schedules->isNotEmpty())
-                                                            Mulai
-                                                            Rp{{ number_format($lapangan->schedules->first()->price, 0, ',', '.') }}
-                                                            / sesi
-                                                        @else
-                                                            Harga tidak tersedia
-                                                        @endif
-                                                    </p>
-                                                    <a href="{{ route('detailLapangan', $lapangan->id) }}"
-                                                        class="btn btn-primary">Detail</a>
-                                                </div>
-                                            </div>
-                                            {{-- @endforeach --}}
-
-                                            {{-- {{ $lapangans->links() }} --}}
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+        <div class="row">
+            <div class="col-md-10">
+                @if ($lapangan)
                     <h1>{{ $lapangan->name }}</h1>
                     <p><strong>Location:</strong> {{ $lapangan->location }}</p>
                     <p><strong>Type:</strong> {{ $lapangan->type }}</p>
@@ -189,81 +40,170 @@
                     @endif
 
                     <h2>Available Schedules</h2>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Start Time</th>
-                                <th>End Time</th>
-                                <th>Price</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($lapangan->schedules as $schedule)
+                    @if ($lapangan->schedules->isEmpty())
+                        <p>Belum ada jadwal</p>
+                    @else
+                        <table class="table">
+                            <thead>
                                 <tr>
-                                    <td>{{ \Carbon\Carbon::parse($schedule->date)->translatedFormat('d F Y') }}
-                                    </td>
-                                    <td>{{ \Carbon\Carbon::parse($schedule->start_time)->format('H:i') }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($schedule->end_time)->format('H:i') }}</td>
-                                    <td>Rp {{ number_format($schedule->price, 0, ',', '.') }}</td>
-                                    <td>
-                                        @if ($schedule->booked == 0)
-                                            <span style="color: green;">Tersedia</span>
-                                        @else
-                                            <span style="color: red;">Sudah Dipesan</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if ($schedule->booked == 0)
-                                            <form id="booking-form-{{ $schedule->id }}"
-                                                action="{{ route('transactions.store') }}" method="POST">
-                                                @csrf
-                                                <input type="hidden" name="schedule_id" value="{{ $schedule->id }}">
-                                                <input type="hidden" name="price" value="{{ $schedule->price }}">
-                                                <button type="submit" class="btn btn-sm btn-primary">Pesan
-                                                    Sekarang</button>
-                                            </form>
-                                        @endif
-                                    </td>
+                                    <th>Date</th>
+                                    <th>Start Time</th>
+                                    <th>End Time</th>
+                                    <th>Price</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.client_key') }}">
-                    </script>
-                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
-                        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7H7X39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-                    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-                    <script type="text/javascript">
-                        $(document).ready(function() {
-                            @foreach ($lapangan->schedules as $schedule)
-                                $('#booking-form-{{ $schedule->id }}').on('submit', function(event) {
-                                    event.preventDefault();
-                                    var form = $(this);
-                                    $.ajax({
-                                        url: form.attr('action'),
-                                        method: form.attr('method'),
-                                        headers: {
-                                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                                        },
-                                        data: form.serialize(), // Serialize form data
-                                        success: function(response) {
-                                            var redirectUrl = '{{ route('transactions.index') }}';
-                                            window.location.href = redirectUrl;
-                                        },
-                                        error: function(xhr) {
-                                            console.log(xhr.responseJSON, null, 4);
-                                        }
-                                    });
-                                });
-                            @endforeach
+                            </thead>
+                            <tbody>
+                                @foreach ($lapangan->schedules as $schedule)
+                                    <tr>
+                                        <td>{{ \Carbon\Carbon::parse($schedule->date)->translatedFormat('d F Y') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($schedule->start_time)->format('H:i') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($schedule->end_time)->format('H:i') }}</td>
+                                        <td>Rp {{ number_format($schedule->price, 0, ',', '.') }}</td>
+                                        <td>
+                                            @if ($schedule->status == 0)
+                                                <span style="color: green;">Tersedia</span>
+                                            @elseif ($schedule->status == 2)
+                                                <span style="color: orange;">Sedang Dipesan</span>
+                                            @elseif ($schedule->status == 1)
+                                                <span style="color: red;">Sudah Dipesan</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($schedule->status == 0)
+                                                @if (Auth::check())
+                                                    <form id="booking-form-{{ $schedule->id }}"
+                                                        action="{{ route('transactions.store') }}" method="POST">
+                                                        @csrf
+                                                        <input type="hidden" name="schedule_id"
+                                                            value="{{ $schedule->id }}">
+                                                        <input type="hidden" name="price"
+                                                            value="{{ $schedule->price }}">
+                                                        <button type="submit" class="btn btn-sm btn-primary">Pesan
+                                                            Sekarang</button>
+                                                    </form>
+                                                @else
+                                                    <a href="{{ route('login') }}" class="btn btn-sm btn-primary">Pesan
+                                                        Sekarang</a>
+                                                @endif
+                                            @endif
+                                        </td>
+
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @endif
+
+                    <!-- Formulir Input Ulasan -->
+                    <h2>Tambah Ulasan</h2>
+                    <form id="review-form" action="{{ route('reviews.store') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="lapangan_id" value="{{ $lapangan->id }}">
+                        <div class="form-group">
+                            <label for="rating">Rating:</label>
+                            <select class="form-control" id="rating" name="rating">
+                                <option value="5">5 - Sangat Bagus</option>
+                                <option value="4">4 - Bagus</option>
+                                <option value="3">3 - Biasa Saja</option>
+                                <option value="2">2 - Buruk</option>
+                                <option value="1">1 - Sangat Buruk</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="review">Ulasan:</label>
+                            <textarea class="form-control" id="review" name="review" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit Ulasan</button>
+                    </form>
+
+                    <!-- Tampilkan Ulasan -->
+                    <h2>Ulasan</h2>
+                    @if ($reviews->isEmpty())
+                        <p>Belum ada ulasan.</p>
+                    @else
+                        @foreach ($reviews as $review)
+                            <div class="review">
+                                <p><strong>{{ $review->user->name }}</strong> - {{ $review->rating }} / 5</p>
+                                <p>{{ $review->review }}</p>
+                                <p><small>{{ $review->created_at->format('d M Y H:i') }}</small></p>
+                            </div>
+                        @endforeach
+
+                        <!-- Tambahkan Paginasi -->
+                        {{ $reviews->links() }}
+                    @endif
+                @else
+                    <p>Data lapangan tidak ditemukan.</p>
+                @endif
+            </div>
+        </div>
+    </div>
+
+    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.client_key') }}">
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7H7X39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            @foreach ($lapangan->schedules as $schedule)
+                $('#booking-form-{{ $schedule->id }}').on('submit', function(event) {
+                    event.preventDefault();
+                    var form = $(this);
+                    $.ajax({
+                        url: form.attr('action'),
+                        method: form.attr('method'),
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        data: form.serialize(), // Serialize form data
+                        success: function(response) {
+                            var redirectUrl = '{{ route('transactions.index') }}';
+                            window.location.href = redirectUrl;
+                        },
+                        error: function(xhr) {
+                            console.log(xhr.responseJSON, null, 4);
+                        }
+                    });
+                });
+            @endforeach
+
+            $('#review-form').on('submit', function(event) {
+                event.preventDefault();
+                var form = $(this);
+                $.ajax({
+                    url: form.attr('action'),
+                    method: form.attr('method'),
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: form.serialize(),
+                    success: function(response) {
+                        swal({
+                            title: "Success!",
+                            text: response.message,
+                            icon: "success",
+                            button: "OK",
+                        }).then((value) => {
+                            location.reload();
                         });
-                    </script>
-                    {{-- <script src="{{ asset('js/script.js') }}"></script> --}}
-                </div>
+                    },
+                    error: function(xhr) {
+                        swal({
+                            title: "Error!",
+                            text: "Failed to submit review.",
+                            icon: "error",
+                            button: "OK",
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

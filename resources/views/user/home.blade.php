@@ -60,6 +60,9 @@
                 <div class="venue-card">
                     @php
                         $photos = json_decode($lapangan->photo, true);
+                        // dump($lapangan->reviews->pluck('rating'));
+                        $ratings = $lapangan->reviews->pluck('rating');
+                        $averageRating = $ratings->isNotEmpty() ? $ratings->avg() : 0.0;
                     @endphp
                     @if (!empty($photos))
                         <img src="{{ asset('images/' . $photos[0]) }}" alt="{{ $lapangan->name }}">
@@ -67,9 +70,17 @@
                         <img src="{{ asset('images/default.jpg') }}" alt="{{ $lapangan->name }}">
                     @endif
                     <div class="venue-info">
-                        <p class="venue-type">Venue</p>
+                        <p class="venue-type">{{ $lapangan->vendor->nama }}</p>
                         <h3>{{ $lapangan->name }}</h3>
-                        <p class="venue-rating">⭐ 4.71 • {{ $lapangan->location }}</p>
+                        <p class="venue-rating">
+                            ⭐
+                            @if ($ratings->isNotEmpty())
+                                {{ number_format($averageRating, 2) }}
+                            @else
+                                Belum Ada Rating
+                            @endif
+                            • {{ $lapangan->location }}
+                        </p>
                         <p class="venue-sports">{{ $lapangan->type }}</p>
                         <p class="venue-price">
                             @if ($lapangan->schedules->isNotEmpty())
@@ -78,11 +89,12 @@
                                 Harga tidak tersedia
                             @endif
                         </p>
-                        <a href="{{ route('detailLapangan', $lapangan->id) }}" class="btn btn-primary">Detail</a>
+                        </br>
+                        <a href="{{ route('detailVendor', $lapangan->vendor_id) }}" class="btn btn-primary">Detail
+                            Vendor</a>
                     </div>
                 </div>
             @endforeach
-
             {{ $lapangans->links() }}
         </div>
 
@@ -125,7 +137,7 @@
                                 <div class="venue-info">
                                     <p class="venue-type">Venue</p>
                                     <h3>${lapangan.name}</h3>
-                                    <a href="{{ route('detailLapangan', '') }}/${lapangan.id}" class="stretched-link"></a>
+                                    <a href="{{ route('detailVendor', '') }}/${lapangan.vendor_id}" class="btn btn-primary">Detail Vendor</a>
                                     <p class="venue-rating">⭐ 4.71 • ${lapangan.location}</p>
                                     <p class="venue-sports">${lapangan.type}</p>
                                     <p class="venue-price">

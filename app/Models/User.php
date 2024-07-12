@@ -25,7 +25,7 @@ class User extends Authenticatable
         'alamat',
         'phone',
         'google_map_link',
-        'profile_photo'     
+        'profile_photo'
     ];
     public function lapangans()
     {
@@ -51,6 +51,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
 
     /**
      * Get the role of the user.

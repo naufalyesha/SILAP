@@ -34,6 +34,11 @@ class Lapangan extends Model
         return $this->belongsTo(User::class, 'vendor_id');
     }
 
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'lapangan_id');
+    }
+
     // Accessor untuk mengakses daftar foto sebagai array
     public function getPhotoAttribute($value)
     {

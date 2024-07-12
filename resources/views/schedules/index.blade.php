@@ -27,9 +27,9 @@
                         <tr>
                             <td>{{ $schedule->lapangan->name }}</td>
                             <td>
-                                @if ($schedule->booked == 0)
+                                @if ($schedule->status == 0)
                                     <span style="color: green;">Tersedia</span>
-                                @else
+                                @elseif ($schedule->status == 1)
                                     <span style="color: red;">Sudah Dipesan</span>
                                 @endif
                             </td>

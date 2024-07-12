@@ -7,10 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Lapangan;
-use App\Models\Transaction;
 use App\Models\Pemesanan; //Belom
 use App\Models\Rating; //Belom
-use App\Models\Pengaduan; //Belom
 
 class UserController extends Controller
 {
@@ -33,13 +31,28 @@ class UserController extends Controller
         $admin = User::where('role', 'admin')->first();
 
         // Kirim data ke view
-        return view('welcome', compact('lapangans', 'admin', 'locations'));
+        return view('user.home', compact('lapangans', 'admin', 'locations'));
+    }
+
+    public function detailVendor($vendor_id)
+    {
+        $vendor = User::where('id', $vendor_id)
+            ->where('role', 'vendor')
+            ->firstOrFail();
+
+        $lapangans = Lapangan::where('vendor_id', $vendor->id)
+            ->with('schedules')
+            ->paginate(10);
+
+        return view('user.detailVendor', compact('vendor', 'lapangans'));
     }
 
     public function detailLapangan($id)
     {
         $lapangan = Lapangan::with('vendor', 'schedules.vendor')->findOrFail($id);
-        return view('user.detail', compact('lapangan'));
+        $reviews = $lapangan->reviews()->orderBy('created_at', 'desc')->paginate(10);
+
+        return view('user.detail', compact('lapangan', 'reviews'));
     }
 
     // Memberikan Rating dan Ulasan (Create)

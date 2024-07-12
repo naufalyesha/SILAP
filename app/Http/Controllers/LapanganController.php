@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Models\Lapangan;
 use App\Models\User;
@@ -32,6 +33,7 @@ class LapanganController extends Controller
         // Kirim data ke view
         return view('welcome', compact('lapangans', 'admin', 'locations'));
     }
+
 
     public function search(Request $request)
     {
