@@ -64,16 +64,21 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin', [AdminController::class, 'admin'])->middleware('userAccess:admin')->name('admin'); //done
     Route::get('/vendor', [VendorController::class, 'vendor'])->middleware('userAccess:vendor')->name('vendor'); //done
     Route::get('/home', [UserController::class, 'customer'])->middleware('userAccess:customer')->name('home'); //done
+
+    //review
+    Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+});
+
+Route::middleware(['auth', 'check.transaction.status'])->group(function () {
     //transaction
     Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index'); //done
+    Route::get('/transactions/failed', [TransactionController::class, 'failed'])->name('transactions.failed');
     Route::post('/transactions/create', [TransactionController::class, 'create'])->name('transactions.store'); //done
     Route::post('/midtrans/notification', [MidtransController::class, 'notificationHandler'])->name('midtrans.notification'); //done
     Route::post('/transactions/webhook', [TransactionController::class, 'webhook'])->name('transactions.webhook'); //done
     Route::post('/transactions/cancel', [TransactionController::class, 'cancel'])->name('transactions.cancel'); //done
-    Route::post('/transactions/cancel/success', [TransactionController::class, 'cancelSuccess'])->name('transactions.cancel.success');//done
+    Route::post('/transactions/cancel/success', [TransactionController::class, 'cancelSuccess'])->name('transactions.cancel.success'); //done
     Route::delete('/transactions/{transaction}', [TransactionController::class, 'destroy'])->name('transactions.destroy'); //done
-    //review
-    Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
 });
 
 Route::middleware(['auth', 'role:customer'])->group(function () {

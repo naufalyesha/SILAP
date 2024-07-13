@@ -193,9 +193,10 @@
                         });
                     },
                     error: function(xhr) {
+                        var response = xhr.responseJSON;
                         swal({
                             title: "Error!",
-                            text: "Failed to submit review.",
+                            text: response.message,
                             icon: "error",
                             button: "OK",
                         });

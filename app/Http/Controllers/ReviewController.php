@@ -17,6 +17,18 @@ class ReviewController extends Controller
             'review' => 'required|string|max:500',
         ]);
 
+        // Cek apakah user sudah pernah memberikan review untuk lapangan ini
+        $existingReview = Review::where('lapangan_id', $request->lapangan_id)
+            ->where('user_id', Auth::id())
+            ->first();
+
+        if ($existingReview) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Anda sudah pernah mengirimkan ulasan anda.'
+            ], 400);
+        }
+
         try {
             Review::create([
                 'lapangan_id' => $request->lapangan_id,
@@ -25,11 +37,15 @@ class ReviewController extends Controller
                 'review' => $request->review,
             ]);
 
-            return redirect()->route('detailLapangan', $request->lapangan_id)
-                ->with('success', 'Review submitted successfully!');
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Ulasan telah terkirim!'
+            ], 200);
         } catch (\Exception $e) {
-            return redirect()->route('detailLapangan', $request->lapangan_id)
-                ->with('error', 'Failed to submit review.');
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Gagal mengirim ulasan.'
+            ], 500);
         }
     }
 }

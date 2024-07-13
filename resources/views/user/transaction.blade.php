@@ -12,6 +12,17 @@
 
 <body>
     <div class="container mt-4">
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
         <div class="d-flex justify-content-between align-items-center mb=4">
             <h1>Pesanan Saya</h1>
             <a href="{{ route('home') }}" class="btn btn-primary">Kembali</a>
@@ -27,7 +38,8 @@
                         <th>Vendor</th>
                         <th>Jadwal</th>
                         <th>Total Harga</th>
-                        <th>Tanggal</th>
+                        <th>Tanggal Pesan</th>
+                        <th>Waktu Pesan</th>
                         <th>Status</th>
                         <th>Aksi</th>
                     </tr>
@@ -42,6 +54,7 @@
                                 {{ \Carbon\Carbon::parse($transaction->schedule->end_time)->format('H.i') }}</td>
                             <td>{{ 'Rp ' . number_format($transaction->price, 0, ',', '.') }}</td>
                             <td>{{ \Carbon\Carbon::parse($transaction->created_at)->translatedFormat('j F Y') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($transaction->created_at)->translatedFormat('H.i') }}</td>
                             <td id="status-{{ $transaction->id }}">{{ $transaction->status }}</td>
                             <td>
                                 @if ($transaction->schedule->status == 2)

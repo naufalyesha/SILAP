@@ -19,6 +19,7 @@ class TransactionController extends Controller
         $user = Auth::user();
         $transactions = Transaction::with(['schedule.lapangan', 'schedule.vendor'])
             ->where('user_id', $user->id)
+            ->orderBy('created_at', 'desc')
             ->get();
         return view('user.transaction', compact('transactions'));
     }
@@ -74,7 +75,10 @@ class TransactionController extends Controller
             'expiry' => [
                 'start_time' => date("Y-m-d H:i:s T"),
                 'unit' => 'minute',
-                'duration' => 10
+                'duration' => 1
+            ],
+            'callbacks' => [
+                'finish' => url('/transactions/failed')
             ],
         ];
 
@@ -100,6 +104,11 @@ class TransactionController extends Controller
             Log::error('Error membuat transaksi: ' . $e->getMessage());
             return redirect()->route('transactions.index')->with('error', 'Gagal membuat Transaksi. Coba Lagi.');
         }
+    }
+
+    public function failed()
+    {
+        return redirect()->route('transactions.index')->with('error', 'Transaksi gagal.');
     }
 
 
