@@ -19,12 +19,11 @@
 <body>
 
     <header>
-        <i class="fas fa-arrow-left back-icon" onclick="goBack()"></i>
+        <i class="fas fa-arrow-left back-icon"></i>
         <div class="logo">
             <a href="{{ Auth::check() ? route('home') : url('/') }}">SportField</a>
         </div>
     </header>
-
 
     <main>
         <!-- Vendor detail start -->
@@ -118,6 +117,16 @@
             {{ $lapangans->links() }}
         </div>
     </div>
+
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            const backIcon = document.querySelector('.back-icon');
+
+            backIcon.addEventListener('click', function() {
+                window.location.href = '{{ route('home') }}';
+            });
+        });
+    </script>
 </body>
 
 </html>

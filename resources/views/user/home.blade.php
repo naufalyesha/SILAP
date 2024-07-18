@@ -3,8 +3,19 @@
 @section('content')
     <!-- home section start -->
 
-    <section class="home" id="home">
+    {{-- <section class="home" id="home">
         <!-- <div class="home-container"> -->
+        <div class="home-text">
+            <h1>Penyewaan lapangan secara online</h1>
+            <p>Sewa lapangan olahraga sekarang dan nikmati pengalaman olahraga yang menyenangkan!</p>
+            <a href="#fields" class="btn">Cari Lapangan</a>
+        </div> --}}
+    {{-- @extends('layout/user/app') --}}
+
+    {{-- @section('content') --}}
+
+    <!-- home section start -->
+    <section class="home" id="home">
         <div class="home-text">
             <h1>Penyewaan lapangan secara online</h1>
             <p>Sewa lapangan olahraga sekarang dan nikmati pengalaman olahraga yang menyenangkan!</p>
@@ -15,8 +26,8 @@
             <img src="{{ asset('images/1.png') }}" alt="home">
         </div>
     </section>
-
     <!-- home section end -->
+
 
     <!-- fields section starts -->
 
@@ -70,7 +81,7 @@
                         <img src="{{ asset('images/default.jpg') }}" alt="{{ $lapangan->name }}">
                     @endif
                     <div class="venue-info">
-                        <p class="venue-type">{{ $lapangan->vendor->nama }}</p>
+                        <p class="venue-type">Venue</p>
                         <h3>{{ $lapangan->name }}</h3>
                         <p class="venue-rating">
                             ⭐
@@ -132,20 +143,20 @@
                                 '{{ asset('images/default.jpg') }}';
 
                             venueGrid.innerHTML += `
-                            <div class="venue-card">
-                                <img src="${photoUrl}" alt="${lapangan.name}">
-                                <div class="venue-info">
-                                    <p class="venue-type">Venue</p>
-                                    <h3>${lapangan.name}</h3>
-                                    <a href="{{ route('detailVendor', '') }}/${lapangan.vendor_id}" class="btn btn-primary">Detail Vendor</a>
-                                    <p class="venue-rating">⭐ 4.71 • ${lapangan.location}</p>
-                                    <p class="venue-sports">${lapangan.type}</p>
-                                    <p class="venue-price">
-                                        ${lapangan.schedules.length ? 'Mulai Rp' + new Intl.NumberFormat('id-ID').format(lapangan.schedules[0].price) + ' / sesi' : 'Harga tidak tersedia'}
-                                    </p>
-                                </div>
-                            </div>
-                        `;
+                                    <div class="venue-card">
+                                        <img src="${photoUrl}" alt="${lapangan.name}">
+                                        <div class="venue-info">
+                                            <p class="venue-type">Venue</p>
+                                            <h3>${lapangan.name}</h3>
+                                            <a href="{{ route('detailVendor', '') }}/${lapangan.vendor_id}" class="btn btn-primary">Detail Vendor</a>
+                                            <p class="venue-rating">⭐ 4.71 • ${lapangan.location}</p>
+                                            <p class="venue-sports">${lapangan.type}</p>
+                                            <p class="venue-price">
+                                                ${lapangan.schedules.length ? 'Mulai Rp' + new Intl.NumberFormat('id-ID').format(lapangan.schedules[0].price) + ' / sesi' : 'Harga tidak tersedia'}
+                                            </p>
+                                        </div>
+                                    </div>
+                                `;
                         });
                     })
                     .catch(error => {
@@ -159,8 +170,9 @@
         </script>
     </section>
 
-
     <!-- fields section end -->
+
+    <!-- about section start -->
 
     <section class="about" id="about">
         <h3 class="sub-heading">Tentang Kami</h3>
@@ -170,66 +182,71 @@
 
             <!--   -->
 
-
             <div class="content">
-                <div class="content-box">
-                    <h3>Selamat datang di SportField!</h3>
-                    <p>Kami adalah penyedia layanan penyewaan lapangan olahraga yang berdedikasi untuk memberikan
-                        pengalaman terbaik bagi Anda. Dengan berbagai jenis lapangan yang tersedia, kami berkomitmen
-                        untuk memenuhi kebutuhan olahraga Anda, baik untuk latihan rutin, pertandingan, maupun acara
-                        khusus.</p>
-                </div>
-                <div class="content-box">
-                    <h3>Misi Kami</h3>
-                    <p>Kami percaya bahwa olahraga adalah bagian penting dari gaya hidup sehat dan kebersamaan
-                        komunitas. Misi kami adalah menyediakan fasilitas lapangan berkualitas tinggi yang mudah
-                        diakses
-                        oleh semua orang. Kami berusaha untuk menciptakan lingkungan yang menyenangkan dan mendukung
-                        untuk semua pengguna lapangan kami.</p>
-                </div>
-                <div class="content-box">
-                    <h3>Visi Kami</h3>
-                    <p>Visi kami adalah menjadi penyedia layanan penyewaan lapangan terbaik dan terpercaya di lokasi
-                        Anda, dengan terus meningkatkan kualitas fasilitas dan pelayanan kami. Kami ingin menjadi
-                        tempat
-                        pilihan utama bagi para penggemar olahraga untuk beraktivitas dan bersosialisasi.</p>
-                </div>
-                <div class="content-box">
-                    <h3>Mengapa Memilih Kami?</h3>
-                    <ul>
-                        <li><strong>Kualitas Lapangan:</strong> Kami menawarkan lapangan dengan kondisi terbaik,
-                            baik
-                            dari segi perawatan maupun fasilitas pendukung.</li>
-                        <li><strong>Kemudahan Pemesanan:</strong> Sistem pemesanan online kami dirancang untuk
-                            memudahkan Anda dalam memilih dan memesan lapangan sesuai kebutuhan.</li>
-                        <li><strong>Harga Terjangkau:</strong> Kami menyediakan berbagai pilihan harga yang
-                            kompetitif
-                            dengan berbagai promo menarik.</li>
-                        <li><strong>Layanan Pelanggan:</strong> Tim kami siap membantu Anda dengan segala pertanyaan
-                            dan
-                            kebutuhan Anda, memastikan pengalaman Anda bersama kami selalu memuaskan.</li>
-                    </ul>
-                </div>
-                <div class="container">
+                <div class="content">
                     <div class="content-box">
-                        <h3>Hubungi Kami</h3>
-                        <p>Jika Anda memiliki pertanyaan atau membutuhkan informasi lebih lanjut, jangan ragu untuk
-                            menghubungi kami. Kami dengan senang hati akan membantu Anda.</p>
-                        @if ($admin)
-                            <p><strong>Email : </strong> {{ $admin->email }}</p>
-                            <p><strong>Telepon : </strong> {{ $admin->phone }}</p>
-                            <p><strong>Alamat : </strong> {{ $admin->alamat }}</p>
-                        @else
-                            <p>Informasi admin tidak tersedia.</p>
-                        @endif
-                        <p>Terima kasih telah memilih SportField sebagai tempat Anda berolahraga. Kami berharap dapat
-                            memberikan pengalaman terbaik dan menjadi bagian dari perjalanan olahraga Anda.</p>
-                        <a href="{{ route('contact') }}" class="btn btn-primary">Hubungi Kami</a>
+                        <h3>Selamat datang di SportField!</h3>
+                        <p>Kami adalah penyedia layanan penyewaan lapangan olahraga yang berdedikasi untuk memberikan
+                            pengalaman terbaik bagi Anda. Dengan berbagai jenis lapangan yang tersedia, kami berkomitmen
+                            untuk memenuhi kebutuhan olahraga Anda, baik untuk latihan rutin, pertandingan, maupun acara
+                            khusus.</p>
                     </div>
+                    <div class="content-box">
+                        <h3>Misi Kami</h3>
+                        <p>Kami percaya bahwa olahraga adalah bagian penting dari gaya hidup sehat dan kebersamaan
+                            komunitas. Misi kami adalah menyediakan fasilitas lapangan berkualitas tinggi yang mudah
+                            diakses
+                            oleh semua orang. Kami berusaha untuk menciptakan lingkungan yang menyenangkan dan mendukung
+                            untuk semua pengguna lapangan kami.</p>
+                    </div>
+                    <div class="content-box">
+                        <h3>Visi Kami</h3>
+                        <p>Visi kami adalah menjadi penyedia layanan penyewaan lapangan terbaik dan terpercaya di lokasi
+                            Anda, dengan terus meningkatkan kualitas fasilitas dan pelayanan kami. Kami ingin menjadi
+                            tempat
+                            pilihan utama bagi para penggemar olahraga untuk beraktivitas dan bersosialisasi.</p>
+                    </div>
+                    <div class="content-box">
+                        <h3>Mengapa Memilih Kami?</h3>
+                        <ul>
+                            <li><strong>Kualitas Lapangan:</strong> Kami menawarkan lapangan dengan kondisi terbaik,
+                                baik
+                                dari segi perawatan maupun fasilitas pendukung.</li>
+                            <li><strong>Kemudahan Pemesanan:</strong> Sistem pemesanan online kami dirancang untuk
+                                memudahkan Anda dalam memilih dan memesan lapangan sesuai kebutuhan.</li>
+                            <li><strong>Harga Terjangkau:</strong> Kami menyediakan berbagai pilihan harga yang
+                                kompetitif
+                                dengan berbagai promo menarik.</li>
+                            <li><strong>Layanan Pelanggan:</strong> Tim kami siap membantu Anda dengan segala pertanyaan
+                                dan
+                                kebutuhan Anda, memastikan pengalaman Anda bersama kami selalu memuaskan.</li>
+                        </ul>
+                    </div>
+                    <div class="container">
+                        <div class="content-box">
+                            <h3>Hubungi Kami</h3>
+                            <p>Jika Anda memiliki pertanyaan atau membutuhkan informasi lebih lanjut, jangan ragu untuk
+                                menghubungi kami. Kami dengan senang hati akan membantu Anda.</p>
+                            @if ($admin)
+                                <p><strong>Email : </strong> {{ $admin->email }}</p>
+                                <p><strong>Telepon : </strong> {{ $admin->phone }}</p>
+                                <p><strong>Alamat : </strong> {{ $admin->alamat }}</p>
+                            @else
+                                <p>Informasi admin tidak tersedia.</p>
+                            @endif
+                            <p>Terima kasih telah memilih SportField sebagai tempat Anda berolahraga. Kami berharap
+                                dapat
+                                memberikan pengalaman terbaik dan menjadi bagian dari perjalanan olahraga Anda.</p>
+                            <a href="{{ route('contact') }}" class="btn btn-primary">Hubungi Kami</a>
+                        </div>
+                    </div>
+                    <!-- about section end -->
                 </div>
+
             </div>
 
     </section>
+
     <section class="faq" id="faq">
 
         <h2 class="heading">FAQ</h2>
@@ -291,7 +308,10 @@
         </div>
     </section>
 
-    <script src="{{ asset('js/scriptLandingPage.js') }}">
+    <script src="{{ asset('js/scriptLandingPage.js') }}"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script> --}}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
         document.querySelectorAll('.faq-question').forEach(item => {
             item.addEventListener('click', event => {
                 const currentlyActive = document.querySelector('.faq-question.active');

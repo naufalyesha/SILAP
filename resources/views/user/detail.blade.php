@@ -19,7 +19,7 @@
 <body>
 
     <header>
-        <i class="fas fa-arrow-left back-icon" onclick="goBack()"></i>
+        <i class="fas fa-arrow-left back-icon" data-vendor-id="{{ $lapangan->vendor_id }}"></i>
         <div class="logo">
             <a href="{{ Auth::check() ? route('home') : url('/') }}">SportField</a>
         </div>
@@ -227,6 +227,16 @@
                         });
                     }
                 });
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const backIcon = document.querySelector('.back-icon');
+            const vendorId = backIcon.getAttribute('data-vendor-id');
+
+            backIcon.addEventListener('click', function() {
+                const vendorDetailUrl = `/detail-vendor/${vendorId}`;
+                window.location.href = vendorDetailUrl;
             });
         });
     </script>
