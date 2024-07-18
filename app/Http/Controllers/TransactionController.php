@@ -75,7 +75,7 @@ class TransactionController extends Controller
             'expiry' => [
                 'start_time' => date("Y-m-d H:i:s T"),
                 'unit' => 'minute',
-                'duration' => 1
+                'duration' => 10
             ],
             'callbacks' => [
                 'finish' => url('/transactions/failed')

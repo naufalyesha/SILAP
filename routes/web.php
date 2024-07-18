@@ -10,6 +10,7 @@ use App\Http\Controllers\LapanganController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\MidtransController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,8 +62,9 @@ Route::middleware(['auth'])->group(function () {
     //Edit Profile
     Route::put('/profile/update', [VendorController::class, 'updateProfile'])->name('profile.update'); //done
     //User
-    Route::get('/admin', [AdminController::class, 'admin'])->middleware('userAccess:admin')->name('admin'); //done
-    Route::get('/vendor', [VendorController::class, 'vendor'])->middleware('userAccess:vendor')->name('vendor'); //done
+    Route::get('/admin', [DashboardController::class, 'admin'])->middleware('userAccess:admin')->name('admin'); //done
+    Route::get('/vendor', [DashboardController::class, 'vendor'])->middleware('userAccess:vendor')->name('vendor'); //done
+    // Route::get('/vendor', [VendorController::class, 'vendor'])->middleware('userAccess:vendor')->name('vendor'); //sebelumnya
     Route::get('/home', [UserController::class, 'customer'])->middleware('userAccess:customer')->name('home'); //done
 
     //review
@@ -101,7 +103,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 });
 
 Route::middleware(['auth', 'role:vendor'])->group(function () {
-    //Vendor Reset Password
 
     //Vendor CRUD lapangan
     Route::get('/vendor/lapangans', [VendorController::class, 'indexLapangan'])->name('vendor.lapangans'); //done

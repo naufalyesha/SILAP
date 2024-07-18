@@ -10,11 +10,6 @@ use App\Models\User;
 
 class AdminController extends Controller
 {
-    function admin()
-    {
-        return view('admin/dashboard');
-    }
-
     // public function updateProfileAdmin(Request $request)
     // {
     //     $request->validate([

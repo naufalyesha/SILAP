@@ -40,7 +40,7 @@
                     @endif
 
                     <h2>Available Schedules</h2>
-                    @if ($lapangan->schedules->isEmpty())
+                    @if ($schedules->isEmpty())
                         <p>Belum ada jadwal</p>
                     @else
                         <table class="table">
@@ -55,7 +55,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($lapangan->schedules as $schedule)
+                                @foreach ($schedules as $schedule)
                                     <tr>
                                         <td>{{ \Carbon\Carbon::parse($schedule->date)->translatedFormat('d F Y') }}</td>
                                         <td>{{ \Carbon\Carbon::parse($schedule->start_time)->format('H:i') }}</td>

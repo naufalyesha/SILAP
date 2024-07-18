@@ -12,6 +12,7 @@ class MidtransController extends Controller
 {
     public function notificationHandler(Request $request)
     {
+        
         $transaction = Transaction::where('id', $request->transaction_id)->first();
 
         if ($transaction) {
@@ -21,7 +22,7 @@ class MidtransController extends Controller
             if ($schedule) {
                 if ($request->status == 'success') {
                     $schedule->status = 1; // Terpesan
-                } else if (in_array($request->status, ['expire', 'cancel', 'deny', 'failed'])) {
+                } else if (in_array($request->status, ['expire', 'cancel', 'deny', 'failed', 'gagal'])) {
                     $schedule->status = 0; // Tersedia
                     $transaction->status = 'gagal'; // Gagal
                 }
