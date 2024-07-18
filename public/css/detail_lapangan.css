@@ -1,0 +1,255 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+* {
+    text-decoration: none;
+    padding: 0;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+    text-transform: capitalize;
+}
+
+html {
+    font-size: 62.5%;
+    overflow-x: hidden;
+    scroll-padding-top: 5.5rem;
+    scroll-behavior: smooth;
+}
+
+/* General Styles */
+body {
+    background-color: #fff;
+    color: #000;
+}
+
+header {
+    position: fixed;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 5%;
+    z-index: 999;
+    background-color: #fff;
+    border-bottom: 1px solid #184796;
+}
+
+header i {
+    font-size: 30px;
+    cursor: pointer;
+}
+
+header .logo {
+    flex-grow: 1;
+    text-align: center;
+}
+
+header .logo a {
+    color: #184796;
+    font-size: 35px;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.heading {
+    text-align: center;
+    color: #192a56;
+    font-size: 3rem;
+    padding-bottom: 2rem;
+    text-transform: uppercase;
+}
+
+.container {
+    padding: 100px 100px 20px 100px;
+}
+
+.field {
+    margin: 0 20px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.fieldInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #184796;
+    border-radius: 20px;
+    padding: 20px;
+    color: #fff;
+}
+
+.fieldInfo h1,
+.fieldInfo p {
+    margin: 10px 0;
+    font-size: 20px;
+}
+
+.fields {
+    margin-top: 20px;
+}
+
+.detailFields {
+    width: 100%;
+}
+
+.img-fields {
+    width: 100%;
+    margin: 20px 0;
+}
+
+.photo-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.photo-gallery img {
+    max-width: 200px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Button Styles */
+.btn-primary {
+    background-color: #184796;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 0;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.4s;
+}
+
+.btn-primary:hover {
+    background-color: #143e6e;
+}
+
+.schedule {
+    padding-top: 25px;
+    /* background-color: #f2f2f2; */
+}
+
+/* Table Styles */
+.table {
+    width: 100%;
+    margin-top: 10px;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.table th {
+    background-color: #184796;
+    color: white;
+}
+
+.table td {
+    background-color: #f9f9f9;
+}
+
+/* Review Form Styles */
+#review-form .form-group {
+    margin-bottom: 15px;
+}
+
+#review-form label {
+    font-weight: bold;
+}
+
+#review-form .form-control.long-textarea {
+    height: 150px;
+    width: 500px;
+    /* You can adjust this height as needed */
+}
+
+#review-form .form-control {
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.review {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+}
+
+/* Pagination Styles */
+.pagination {
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination .page-link {
+    color: #184796;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #184796;
+    border-color: #184796;
+}
+
+td {
+    font-size: 13px;
+}
+
+.ulasan p {
+    font-size: 15px;
+}
+
+.tambah_ulasan {
+    padding-top: 25px;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    header .logo a {
+        font-size: 25px;
+    }
+
+    .container {
+        padding: 100px 20px 20px 20px;
+    }
+
+    .field {
+        margin: 0 10px;
+        padding: 15px;
+    }
+
+    .fieldInfo {
+        flex-direction: column;
+        padding: 15px;
+    }
+
+    .fieldInfo h1,
+    .fieldInfo p {
+        text-align: center;
+    }
+
+    .img-fields {
+        max-width: 100%;
+    }
+
+    .btn-primary {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    .photo-gallery img {
+        max-width: 100%;
+        width: calc(50% - 10px);
+    }
+}

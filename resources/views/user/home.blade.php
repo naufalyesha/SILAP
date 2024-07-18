@@ -170,65 +170,63 @@
 
             <!--   -->
 
+
             <div class="content">
-                <div class="content">
+                <div class="content-box">
+                    <h3>Selamat datang di SportField!</h3>
+                    <p>Kami adalah penyedia layanan penyewaan lapangan olahraga yang berdedikasi untuk memberikan
+                        pengalaman terbaik bagi Anda. Dengan berbagai jenis lapangan yang tersedia, kami berkomitmen
+                        untuk memenuhi kebutuhan olahraga Anda, baik untuk latihan rutin, pertandingan, maupun acara
+                        khusus.</p>
+                </div>
+                <div class="content-box">
+                    <h3>Misi Kami</h3>
+                    <p>Kami percaya bahwa olahraga adalah bagian penting dari gaya hidup sehat dan kebersamaan
+                        komunitas. Misi kami adalah menyediakan fasilitas lapangan berkualitas tinggi yang mudah
+                        diakses
+                        oleh semua orang. Kami berusaha untuk menciptakan lingkungan yang menyenangkan dan mendukung
+                        untuk semua pengguna lapangan kami.</p>
+                </div>
+                <div class="content-box">
+                    <h3>Visi Kami</h3>
+                    <p>Visi kami adalah menjadi penyedia layanan penyewaan lapangan terbaik dan terpercaya di lokasi
+                        Anda, dengan terus meningkatkan kualitas fasilitas dan pelayanan kami. Kami ingin menjadi
+                        tempat
+                        pilihan utama bagi para penggemar olahraga untuk beraktivitas dan bersosialisasi.</p>
+                </div>
+                <div class="content-box">
+                    <h3>Mengapa Memilih Kami?</h3>
+                    <ul>
+                        <li><strong>Kualitas Lapangan:</strong> Kami menawarkan lapangan dengan kondisi terbaik,
+                            baik
+                            dari segi perawatan maupun fasilitas pendukung.</li>
+                        <li><strong>Kemudahan Pemesanan:</strong> Sistem pemesanan online kami dirancang untuk
+                            memudahkan Anda dalam memilih dan memesan lapangan sesuai kebutuhan.</li>
+                        <li><strong>Harga Terjangkau:</strong> Kami menyediakan berbagai pilihan harga yang
+                            kompetitif
+                            dengan berbagai promo menarik.</li>
+                        <li><strong>Layanan Pelanggan:</strong> Tim kami siap membantu Anda dengan segala pertanyaan
+                            dan
+                            kebutuhan Anda, memastikan pengalaman Anda bersama kami selalu memuaskan.</li>
+                    </ul>
+                </div>
+                <div class="container">
                     <div class="content-box">
-                        <h3>Selamat datang di SportField!</h3>
-                        <p>Kami adalah penyedia layanan penyewaan lapangan olahraga yang berdedikasi untuk memberikan
-                            pengalaman terbaik bagi Anda. Dengan berbagai jenis lapangan yang tersedia, kami berkomitmen
-                            untuk memenuhi kebutuhan olahraga Anda, baik untuk latihan rutin, pertandingan, maupun acara
-                            khusus.</p>
-                    </div>
-                    <div class="content-box">
-                        <h3>Misi Kami</h3>
-                        <p>Kami percaya bahwa olahraga adalah bagian penting dari gaya hidup sehat dan kebersamaan
-                            komunitas. Misi kami adalah menyediakan fasilitas lapangan berkualitas tinggi yang mudah
-                            diakses
-                            oleh semua orang. Kami berusaha untuk menciptakan lingkungan yang menyenangkan dan mendukung
-                            untuk semua pengguna lapangan kami.</p>
-                    </div>
-                    <div class="content-box">
-                        <h3>Visi Kami</h3>
-                        <p>Visi kami adalah menjadi penyedia layanan penyewaan lapangan terbaik dan terpercaya di lokasi
-                            Anda, dengan terus meningkatkan kualitas fasilitas dan pelayanan kami. Kami ingin menjadi
-                            tempat
-                            pilihan utama bagi para penggemar olahraga untuk beraktivitas dan bersosialisasi.</p>
-                    </div>
-                    <div class="content-box">
-                        <h3>Mengapa Memilih Kami?</h3>
-                        <ul>
-                            <li><strong>Kualitas Lapangan:</strong> Kami menawarkan lapangan dengan kondisi terbaik,
-                                baik
-                                dari segi perawatan maupun fasilitas pendukung.</li>
-                            <li><strong>Kemudahan Pemesanan:</strong> Sistem pemesanan online kami dirancang untuk
-                                memudahkan Anda dalam memilih dan memesan lapangan sesuai kebutuhan.</li>
-                            <li><strong>Harga Terjangkau:</strong> Kami menyediakan berbagai pilihan harga yang
-                                kompetitif
-                                dengan berbagai promo menarik.</li>
-                            <li><strong>Layanan Pelanggan:</strong> Tim kami siap membantu Anda dengan segala pertanyaan
-                                dan
-                                kebutuhan Anda, memastikan pengalaman Anda bersama kami selalu memuaskan.</li>
-                        </ul>
-                    </div>
-                    <div class="container">
-                        <div class="content-box">
-                            <h3>Hubungi Kami</h3>
-                            <p>Jika Anda memiliki pertanyaan atau membutuhkan informasi lebih lanjut, jangan ragu untuk
-                                menghubungi kami. Kami dengan senang hati akan membantu Anda.</p>
-                            @if ($admin)
-                                <p><strong>Email : </strong> {{ $admin->email }}</p>
-                                <p><strong>Telepon : </strong> {{ $admin->phone }}</p>
-                                <p><strong>Alamat : </strong> {{ $admin->alamat }}</p>
-                            @else
-                                <p>Informasi admin tidak tersedia.</p>
-                            @endif
-                            <p>Terima kasih telah memilih SportField sebagai tempat Anda berolahraga. Kami berharap dapat
-                                memberikan pengalaman terbaik dan menjadi bagian dari perjalanan olahraga Anda.</p>
-                            <a href="{{ route('contact') }}" class="btn btn-primary">Hubungi Kami</a>
-                        </div>
+                        <h3>Hubungi Kami</h3>
+                        <p>Jika Anda memiliki pertanyaan atau membutuhkan informasi lebih lanjut, jangan ragu untuk
+                            menghubungi kami. Kami dengan senang hati akan membantu Anda.</p>
+                        @if ($admin)
+                            <p><strong>Email : </strong> {{ $admin->email }}</p>
+                            <p><strong>Telepon : </strong> {{ $admin->phone }}</p>
+                            <p><strong>Alamat : </strong> {{ $admin->alamat }}</p>
+                        @else
+                            <p>Informasi admin tidak tersedia.</p>
+                        @endif
+                        <p>Terima kasih telah memilih SportField sebagai tempat Anda berolahraga. Kami berharap dapat
+                            memberikan pengalaman terbaik dan menjadi bagian dari perjalanan olahraga Anda.</p>
+                        <a href="{{ route('contact') }}" class="btn btn-primary">Hubungi Kami</a>
                     </div>
                 </div>
-
             </div>
 
     </section>
@@ -292,4 +290,24 @@
             </div>
         </div>
     </section>
+
+    <script src="{{ asset('js/scriptLandingPage.js') }}">
+        document.querySelectorAll('.faq-question').forEach(item => {
+            item.addEventListener('click', event => {
+                const currentlyActive = document.querySelector('.faq-question.active');
+                if (currentlyActive && currentlyActive !== item) {
+                    currentlyActive.classList.toggle('active');
+                    currentlyActive.nextElementSibling.style.display = 'none';
+                }
+
+                item.classList.toggle('active');
+                const answer = item.nextElementSibling;
+                if (item.classList.contains('active')) {
+                    answer.style.display = 'block';
+                } else {
+                    answer.style.display = 'none';
+                }
+            });
+        });
+    </script>
 @endsection

@@ -34,29 +34,29 @@ class VendorController extends Controller
             'phone' => 'required|string|max:15',
             'profile_photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-    
+
         $user = Auth::user();
         $user->nama = $request->nama;
         $user->alamat = $request->alamat;
         $user->phone = $request->phone;
-    
+
         if ($request->hasFile('profile_photo')) {
             if ($user->profile_photo && $user->profile_photo != 'image/profile.jpg') {
                 Storage::delete('public/' . $user->profile_photo);
             }
-    
+
             $filePath = $request->file('profile_photo')->store('public/image');
             $user->profile_photo = str_replace('public/', '', $filePath);
         }
-    
+
         $user->save();
-    
+
         return response()->json([
             'message' => 'Profil berhasil diperbarui!',
             'user' => $user
         ]);
     }
-    
+
 
     // Read Lapangan
     public function indexLapangan()

@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>SportField Detail</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min. css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/detail_lapangan.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -17,29 +17,47 @@
 </head>
 
 <body>
+
+    <header>
+        <i class="fas fa-arrow-left back-icon" onclick="goBack()"></i>
+        <div class="logo">
+            <a href="{{ Auth::check() ? route('home') : url('/') }}">SportField</a>
+        </div>
+    </header>
+
     <div class="container">
-        <div class="row">
-            <div class="col-md-10">
-                @if ($lapangan)
-                    <h1>{{ $lapangan->name }}</h1>
-                    <p><strong>Location:</strong> {{ $lapangan->location }}</p>
-                    <p><strong>Type:</strong> {{ $lapangan->type }}</p>
-                    <p><strong>Description:</strong> {{ $lapangan->description }}</p>
-                    <p><strong>Facilities:</strong> {{ $lapangan->facilities }}</p>
+        <div class="field">
+            @if ($lapangan)
+                <div class="fieldInfo">
+                    <div class="detailFields">
+                        <div class="fields">
+                            <h1>{{ $lapangan->name }}</h1>
+                            <p><strong>Location:</strong> {{ $lapangan->location }}</p>
+                            <p><strong>Type:</strong> {{ $lapangan->type }}</p>
+                            <p><strong>Description:</strong> {{ $lapangan->description }}</p>
+                            <p><strong>Facilities:</strong> {{ $lapangan->facilities }}</p>
 
-                    @if ($lapangan->map)
-                        <p><strong>Map:</strong> {!! $lapangan->map !!}</p>
-                    @endif
+                            @if ($lapangan->map)
+                                <p><strong>Map:</strong> {!! $lapangan->map !!}</p>
+                            @endif
+                        </div>
+                    </div>
 
-                    @if ($lapangan->photo)
-                        <p><strong>Photos:</strong></p>
-                        @foreach (json_decode($lapangan->photo, true) as $photo)
-                            <img src="{{ asset('images/' . $photo) }}" alt="Photo of {{ $lapangan->name }}"
-                                class="img-thumbnail" style="max-width: 200px;">
-                        @endforeach
-                    @endif
+                    <div class="img-fields">
+                        @if ($lapangan->photo)
+                            <p><strong>Photos:</strong></p>
+                            @foreach (json_decode($lapangan->photo, true) as $photo)
+                                <img src="{{ asset('images/' . $photo) }}" alt="Photo of {{ $lapangan->name }}"
+                                    class="img-thumbnail" style="max-width: 200px;">
+                            @endforeach
+                        @endif
+                    </div>
 
-                    <h2>Available Schedules</h2>
+
+
+                </div>
+                <div class="schedule">
+                    <h2 class="heading">Available Schedules</h2>
                     @if ($lapangan->schedules->isEmpty())
                         <p>Belum ada jadwal</p>
                     @else
@@ -57,7 +75,8 @@
                             <tbody>
                                 @foreach ($lapangan->schedules as $schedule)
                                     <tr>
-                                        <td>{{ \Carbon\Carbon::parse($schedule->date)->translatedFormat('d F Y') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($schedule->date)->translatedFormat('d F Y') }}
+                                        </td>
                                         <td>{{ \Carbon\Carbon::parse($schedule->start_time)->format('H:i') }}</td>
                                         <td>{{ \Carbon\Carbon::parse($schedule->end_time)->format('H:i') }}</td>
                                         <td>Rp {{ number_format($schedule->price, 0, ',', '.') }}</td>
@@ -95,31 +114,37 @@
                             </tbody>
                         </table>
                     @endif
+                </div>
 
-                    <!-- Formulir Input Ulasan -->
-                    <h2>Tambah Ulasan</h2>
+
+                <!-- Formulir Input Ulasan -->
+                <div class="tambah_ulasan">
+                    <h2 class="heading" id="tambah_ulasan">Tambah Ulasan</h2>
                     <form id="review-form" action="{{ route('reviews.store') }}" method="POST">
                         @csrf
                         <input type="hidden" name="lapangan_id" value="{{ $lapangan->id }}">
                         <div class="form-group">
                             <label for="rating">Rating:</label>
                             <select class="form-control" id="rating" name="rating">
-                                <option value="5">5 - Sangat Bagus</option>
-                                <option value="4">4 - Bagus</option>
-                                <option value="3">3 - Biasa Saja</option>
-                                <option value="2">2 - Buruk</option>
-                                <option value="1">1 - Sangat Buruk</option>
+                                <option value="5">⭐⭐⭐⭐⭐ </option>
+                                <option value="4">⭐⭐⭐⭐ </option>
+                                <option value="3">⭐⭐⭐</option>
+                                <option value="2">⭐⭐ </option>
+                                <option value="1">⭐ </option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="review">Ulasan:</label>
-                            <textarea class="form-control" id="review" name="review" rows="3"></textarea>
+                            <br>
+                            <textarea class="form-control long-textarea" id="review" name="review" rows="3" cols=""></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit Ulasan</button>
                     </form>
+                </div>
 
-                    <!-- Tampilkan Ulasan -->
-                    <h2>Ulasan</h2>
+                <!-- Tampilkan Ulasan -->
+                <div class="ulasan">
+                    <h2 class="heading">Ulasan</h2>
                     @if ($reviews->isEmpty())
                         <p>Belum ada ulasan.</p>
                     @else
@@ -136,8 +161,8 @@
                     @endif
                 @else
                     <p>Data lapangan tidak ditemukan.</p>
-                @endif
-            </div>
+                </div>
+            @endif
         </div>
     </div>
 

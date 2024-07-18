@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="{{ asset('css/styleLandingPage.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/styleAdmin.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('css/styleAdmin.css') }}"> --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -245,9 +245,9 @@
     </script>
 
 
-    <section class="footer">
-        <div class="box-container">
-            <div class="box">
+    <section class="footer">  
+        {{-- <div class="box-container"> --}}
+        {{-- <div class="box">
                 <h3>Lokasi</h3>
                 <a href="#">India</a>
                 <a href="#">Japan</a>
@@ -280,11 +280,14 @@
                 <a href="#">Instagram</a>
                 <a href="#">LinkedIn</a>
             </div>
-        </div>
+        </div> --}}
 
         <div class="credit"> Dibuat Oleh | @ 2024 by <span>Naufal & Ricad</span></div>
     </section>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('js/scriptLandingPage.js') }}"></script>
+    <script>
+        src = "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" >
+    </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 

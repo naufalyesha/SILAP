@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('schedules', function (Blueprint $table) {
             $table->dropColumn('booked');
-            $table->integer('booked')->default(0); // 0: tersedia, 1: tidak tersedia, 2: menunggu
+            $table->integer('status')->default(0); // 0: tersedia, 1: tidak tersedia, 2: menunggu
         });
     }
 
@@ -21,7 +21,7 @@ return new class extends Migration
     {
         Schema::table('schedules', function (Blueprint $table) {
             $table->boolean('booked')->default(false);
-            $table->dropColumn('booked');
+            $table->dropColumn('status');
         });
     }
 };
