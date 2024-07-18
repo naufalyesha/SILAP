@@ -50,9 +50,22 @@ class UserController extends Controller
     public function detailLapangan($id)
     {
         $lapangan = Lapangan::with('vendor', 'schedules.vendor')->findOrFail($id);
+        $schedules= $lapangan->schedules;
+        $currentDateTime = now();
+        // Hapus jadwal yang sudah expired
+        foreach ($schedules as $schedule) {
+            $scheduleEndDateTime = \Carbon\Carbon::parse($schedule->date . ' ' . $schedule->end_time);
+            if ($scheduleEndDateTime->lessThan($currentDateTime)) {
+                $schedule->delete();
+            }
+        }
+
+        $lapangan = Lapangan::with('vendor', 'schedules.vendor')->findOrFail($id);
+        $schedules= $lapangan->schedules;
+
         $reviews = $lapangan->reviews()->orderBy('created_at', 'desc')->paginate(10);
 
-        return view('user.detail', compact('lapangan', 'reviews'));
+        return view('user.detail', compact('lapangan', 'schedules','reviews'));
     }
 
     // Memberikan Rating dan Ulasan (Create)

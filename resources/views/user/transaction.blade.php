@@ -12,6 +12,17 @@
 
 <body>
     <div class="container mt-4">
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
         <div class="d-flex justify-content-between align-items-center mb=4">
             <h1>Pesanan Saya</h1>
             <a href="{{ route('home') }}" class="btn btn-primary">Kembali</a>
@@ -27,7 +38,8 @@
                         <th>Vendor</th>
                         <th>Jadwal</th>
                         <th>Total Harga</th>
-                        <th>Tanggal</th>
+                        <th>Tanggal Pesan</th>
+                        <th>Waktu Pesan</th>
                         <th>Status</th>
                         <th>Aksi</th>
                     </tr>
@@ -42,15 +54,16 @@
                                 {{ \Carbon\Carbon::parse($transaction->schedule->end_time)->format('H.i') }}</td>
                             <td>{{ 'Rp ' . number_format($transaction->price, 0, ',', '.') }}</td>
                             <td>{{ \Carbon\Carbon::parse($transaction->created_at)->translatedFormat('j F Y') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($transaction->created_at)->translatedFormat('H.i') }}</td>
                             <td id="status-{{ $transaction->id }}">{{ $transaction->status }}</td>
                             <td>
-                                @if ($transaction->schedule->status == 2)
+                                @if (($transaction->schedule->status == 2 && $transaction->status == 'pending')||($transaction->schedule->status == 2 && $transaction->status == 'menunggu'))
                                     <form id="booking-form-{{ $transaction->id }}" class="d-inline">
                                         @csrf
                                         <button type="submit" class="btn btn-sm btn-primary">Pesan Sekarang</button>
                                     </form>
                                 @endif
-                                @if ($transaction->status == 'menunggu')
+                                @if ($transaction->status == 'menunggu'||$transaction->status == 'pending')
                                     <form id="cancel-form-{{ $transaction->id }}"
                                         action="{{ route('transactions.cancel') }}" method="POST"
                                         class="d-inline cancel-form">
@@ -107,7 +120,15 @@
                             updateTransactionStatus('{{ $transaction->id }}', 'error');
                         },
                         onClose: function() {
-                            alert('Anda menutup popup tanpa menyelesaikan pembayaran');
+                            if ('{{$transaction->status}}' === 'pending') {
+                                alert('Pembayaran kadaluwarsa');
+                                updateTransactionStatus('{{ $transaction->id }}', 'gagal');
+                            }
+                            window.location.href = '{{ route('transactions.index') }}';
+                            // if ('{{$transaction->status}}' === 'menunggu') {
+                            //     alert('Pembayaran kadaluwarsa');
+                            //     updateTransactionStatus('{{ $transaction->id }}', 'expire');
+                            // }
                         }
                     });
                 });
@@ -133,7 +154,7 @@
                     });
                 }
 
-                $('.cancel-form').on('submit', function(event) {
+                $('.cancel-form-{{ $transaction->id }}').on('submit', function(event) {
                     event.preventDefault();
                     if (confirm('Apakah Anda yakin ingin membatalkan pesanan ini?')) {
                         var form = $(this);
@@ -157,7 +178,7 @@
                     }
                 });
 
-                $('.cancel-success-form').on('submit', function(event) {
+                $('.cancel-success-form-{{ $transaction->id }}').on('submit', function(event) {
                     event.preventDefault();
                     if (confirm('Apakah Anda yakin ingin membatalkan pesanan ini?')) {
                         var form = $(this);

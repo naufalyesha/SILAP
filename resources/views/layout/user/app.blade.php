@@ -106,21 +106,21 @@
                     @if (Auth::check())
                         @switch(Auth::user()->role)
                             @case('admin')
-                                <li><a href="/admin" class="dropdown-item custom-dropdown-item">Dasbor Admin</a></li>
                                 <li><a href="#" class="dropdown-item" data-bs-toggle="modal"
                                         data-bs-target="#profileModal">Profil</a></li>
+                                <li><a href="/admin" class="dropdown-item custom-dropdown-item">Dasbor Admin</a></li>
                             @break
 
                             @case('vendor')
-                                <li><a href="/vendor" class="dropdown-item custom-dropdown-item">Dasbor Vendor</a></li>
                                 <li><a href="#" class="dropdown-item" data-bs-toggle="modal"
                                         data-bs-target="#profileModal">Profil</a></li>
+                                <li><a href="/vendor" class="dropdown-item custom-dropdown-item">Dasbor Vendor</a></li>
                             @break
 
                             @case('customer')
-                                <li><a href="/logout" class="dropdown-item">Keluar</a></li>
                                 <li><a href="#" class="dropdown-item" data-bs-toggle="modal"
                                         data-bs-target="#profileModal">Profil</a></li>
+                                <li><a href="/logout" class="dropdown-item">Keluar</a></li>
                             @break
 
                             @default

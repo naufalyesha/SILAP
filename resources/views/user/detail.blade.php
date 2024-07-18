@@ -73,7 +73,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($lapangan->schedules as $schedule)
+                                @foreach ($schedules as $schedule)
                                     <tr>
                                         <td>{{ \Carbon\Carbon::parse($schedule->date)->translatedFormat('d F Y') }}
                                         </td>
@@ -218,9 +218,10 @@
                         });
                     },
                     error: function(xhr) {
+                        var response = xhr.responseJSON;
                         swal({
                             title: "Error!",
-                            text: "Failed to submit review.",
+                            text: response.message,
                             icon: "error",
                             button: "OK",
                         });

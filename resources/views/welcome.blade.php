@@ -16,7 +16,6 @@
 
     <!-- home section start -->
     <section class="home" id="home">
-        <!-- <div class="home-container"> -->
         <div class="home-text">
             <h1>Penyewaan lapangan secara online</h1>
             <p>Sewa lapangan olahraga sekarang dan nikmati pengalaman olahraga yang menyenangkan!</p>
@@ -321,6 +320,9 @@
 
 
 
+    <section class="about" id="about">
+        <h3 class="sub-heading">Tentang Kami</h3>
+        <h1 class="heading">SportField</h1>
 
     <!-- fields section end -->
 
