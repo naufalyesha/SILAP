@@ -98,6 +98,14 @@ header .logo a {
     margin: 20px 0;
 }
 
+.img-fields img {
+    width: 200px; /* Tentukan lebar yang diinginkan */
+    height: 150px; /* Tentukan tinggi yang diinginkan */
+    object-fit: cover; /* Memastikan gambar memenuhi area dengan memotong bagian luar jika diperlukan */
+    border-radius: 10px; /* Opsional: Tambahkan radius border untuk membuat gambar lebih menarik */
+    margin: 5px; /* Opsional: Tambahkan margin untuk memberi jarak antar gambar */
+}
+
 .photo-gallery {
     display: flex;
     flex-wrap: wrap;

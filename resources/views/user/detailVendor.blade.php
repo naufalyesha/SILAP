@@ -35,29 +35,26 @@
                 </div>
             </div>
             <div class="vendor-detail">
-                <table>
+                <table class="large-text">
                     <tr>
-                        <td><strong>KOTA</strong></td>
+                        <td><strong>Kota</strong></td>
                         <td><strong> : </strong></td>
                         <td> {{ $vendor->kota }}</td>
                     </tr>
                     <tr>
-                        <td><strong>Nomor Telephone </td>
+                        <td><strong>Nomor Telepon </td>
                         <td><strong> : </strong> </td>
                         <td>{{ $vendor->phone }}</strong></td>
                     </tr>
                     <tr>
-                        <td><strong>ALAMAT</strong></td>
+                        <td><strong>Alamat</strong></td>
                         <td><strong> : </strong></td>
                         <td>{{ $vendor->alamat }}</td>
                     </tr>
                 </table>
             </div>
             <div class="vendor-venue">
-                <button onclick="window.location.href='{{ $vendor->google_map_link }}" class="detail-location">
-                    {{-- <div class="location">
-                        <p><strong>Lokasi : </strong>Lorem ipsum dolor sit ametsdasdasdasdasda asasda.</p>
-                    </div> --}}
+                <button onclick="window.open('{{ $vendor->google_map_link }}', '_blank')" class="detail-location">
                     <div class="location-map">
                         <div class="location-map-container">
                         </div>
@@ -121,9 +118,14 @@
     <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', function() {
             const backIcon = document.querySelector('.back-icon');
+            const isLoggedIn = @json(auth()->check());
 
             backIcon.addEventListener('click', function() {
-                window.location.href = '{{ route('home') }}';
+                if (isLoggedIn) {
+                    window.location.href = '{{ route('home') }}';
+                } else {
+                    window.location.href = '{{ route('readLapangan') }}';
+                }
             });
         });
     </script>

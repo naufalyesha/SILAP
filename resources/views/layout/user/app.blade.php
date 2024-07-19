@@ -14,61 +14,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://kit.fontawesome.com/ae360af17e.js" crossorigin="anonymous"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <style>
-        .nav-icon {
-            position: relative;
-            display: inline-block;
-        }
 
-        .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background-color: white;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            z-index: 1;
-        }
-
-        .dropdown-menu a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-
-        .dropdown-menu a:hover {
-            background-color: #f1f1f1;
-        }
-
-        .custom-dropdown-item {
-            padding: 10px 20px;
-            transition: background-color 0.3s ease;
-            font-size: 2em;
-        }
-
-        .custom-dropdown-item:hover {
-            background-color: #f8f9fa;
-            /* warna latar belakang saat dihover */
-            color: #343a40;
-            /* warna teks saat dihover */
-        }
-
-        .dropdown-toggle {
-            cursor: pointer;
-        }
-
-        .nav-icon .dropdown-toggle::after {
-            display: none;
-            /* Hapus panah dropdown default */
-        }
-
-        .profile-photo {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-    </style>
 </head>
 
 <body>

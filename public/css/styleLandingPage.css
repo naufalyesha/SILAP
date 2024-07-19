@@ -153,6 +153,12 @@ section {
     display: none;
 }
 
+.profile-photo {
+    width: 35px; /* Sesuaikan ukuran sesuai kebutuhan */
+    height: 35px; /* Sesuaikan ukuran sesuai kebutuhan */
+    border-radius: 50%; /* Membuat gambar berbentuk lingkaran */
+    object-fit: cover; /* Memastikan gambar memenuhi area lingkaran */
+}
 
 .home {
     width: 100%;
@@ -475,7 +481,7 @@ h3 {
     color: #333;
 }
 
-.content-box a {
+.content-box a {    
     background-color: #184796;
     color: #fff;
     font-size: 1rem;

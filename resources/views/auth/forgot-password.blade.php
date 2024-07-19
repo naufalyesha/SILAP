@@ -50,22 +50,22 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header text-center">
-                        <h3>Forgot Password?</h3>
+                        <h3>Lupa Kata Sandi?</h3>
                     </div>
                     <div class="card-body">
                         <form action="{{ route('forgot-password-act') }}" method="POST">
                             @csrf
                             <div class="mb-3">
-                                <label for="email" class="form-label">Email address</label>
+                                <label for="email" class="form-label">Alamat Email</label>
                                 <input type="email" class="form-control" id="email" name="email" required>
                             </div>
                             @error('email')
                                 <small>{{ $message }}</small>
                             @enderror
-                            <button type="submit" class="btn btn-primary w-100 mb-3">Send Password Reset Link</button>
+                            <button type="submit" class="btn btn-primary w-100 mb-3">Kirim Tautan Reset Kata Sandi</button>
                             <br>
                             <div class="mb-3">
-                                <a href="/login" class="btn btn-success w-100">Login</a>
+                                <a href="/login" class="btn btn-success w-100">Masuk</a>
                             </div>
                         </form>
                     </div>

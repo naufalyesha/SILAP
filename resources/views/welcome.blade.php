@@ -81,7 +81,7 @@
                         <img src="{{ asset('images/default.jpg') }}" alt="{{ $lapangan->name }}">
                     @endif
                     <div class="venue-info">
-                        <p class="venue-type">Venue</p>
+                        <p class="venue-type">{{ $lapangan->vendor->nama }}</p>
                         <h3>{{ $lapangan->name }}</h3>
                         <p class="venue-rating">
                             ⭐

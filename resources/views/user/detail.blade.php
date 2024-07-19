@@ -32,44 +32,41 @@
                     <div class="detailFields">
                         <div class="fields">
                             <h1>{{ $lapangan->name }}</h1>
-                            <p><strong>Location:</strong> {{ $lapangan->location }}</p>
-                            <p><strong>Type:</strong> {{ $lapangan->type }}</p>
-                            <p><strong>Description:</strong> {{ $lapangan->description }}</p>
-                            <p><strong>Facilities:</strong> {{ $lapangan->facilities }}</p>
+                            <p><strong>Lokasi:</strong> {{ $lapangan->location }}</p>
+                            <p><strong>Tipe Lapangan:</strong> {{ $lapangan->type }}</p>
+                            <p><strong>Deskripsi:</strong> {{ $lapangan->description }}</p>
+                            <p><strong>Fasilitas:</strong> {{ $lapangan->facilities }}</p>
 
-                            @if ($lapangan->map)
+                            {{-- @if ($lapangan->map)
                                 <p><strong>Map:</strong> {!! $lapangan->map !!}</p>
-                            @endif
+                            @endif --}}
                         </div>
                     </div>
 
                     <div class="img-fields">
                         @if ($lapangan->photo)
-                            <p><strong>Photos:</strong></p>
+                            <p><strong>Foto:</strong></p>
                             @foreach (json_decode($lapangan->photo, true) as $photo)
                                 <img src="{{ asset('images/' . $photo) }}" alt="Photo of {{ $lapangan->name }}"
                                     class="img-thumbnail" style="max-width: 200px;">
                             @endforeach
                         @endif
                     </div>
-
-
-
                 </div>
                 <div class="schedule">
-                    <h2 class="heading">Available Schedules</h2>
+                    <h2 class="heading">Jadwal Tersedia</h2>
                     @if ($lapangan->schedules->isEmpty())
-                        <p>Belum ada jadwal</p>
+                        <p style="font-size: 2.5em; font-weight: bold; color: #ff0000;">Belum ada jadwal</p>
                     @else
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Date</th>
-                                    <th>Start Time</th>
-                                    <th>End Time</th>
-                                    <th>Price</th>
+                                    <th>Tanggal</th>
+                                    <th>Waktu Mulai</th>
+                                    <th>Waktu Selesai</th>
+                                    <th>Harga</th>
                                     <th>Status</th>
-                                    <th>Action</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -138,7 +135,7 @@
                             <br>
                             <textarea class="form-control long-textarea" id="review" name="review" rows="3" cols=""></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit Ulasan</button>
+                        <button type="submit" class="btn btn-primary">Kirim Ulasan</button>
                     </form>
                 </div>
 
@@ -146,7 +143,7 @@
                 <div class="ulasan">
                     <h2 class="heading">Ulasan</h2>
                     @if ($reviews->isEmpty())
-                        <p>Belum ada ulasan.</p>
+                        <p style="font-size: 2.5em; font-weight: bold; color: #ff0000;">Belum ada ulasan.</p>
                     @else
                         @foreach ($reviews as $review)
                             <div class="review">

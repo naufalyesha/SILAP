@@ -117,14 +117,14 @@
             @error('email')
                 <small>{{ $message }}</small>
             @enderror
-            <input type="password" name="password" placeholder="Password">
+            <input type="password" name="password" placeholder="Kata Sandi">
             @error('password')
                 <small>{{ $message }}</small>
             @enderror
             <button type="submit">Masuk</button>
         </form>
         <button class="register-btn" onclick="location.href='/register'">Daftar</button>
-        <a href="{{ route('forgot-password') }}">Lupa Password?</a>
+        <a href="{{ route('forgot-password') }}">Lupa Kata Sandi?</a>
         <a href="/">Lanjutkan sebagai Tamu!</a>
     </div>
 
